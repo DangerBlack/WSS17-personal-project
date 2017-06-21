@@ -1,0 +1,291 @@
+7.7 ,Melegnano ,37,A1
+8.9 ,Milano Sud ,1,A1
+22.3 ,Lodi ,2,A1
+37.8 ,Casalpusterlengo ,3,A1
+49.7 ,Piacenza Nord ,4,A1
+74.0 ,Fiorenzuola ,6,A1
+90.4 ,Fidenza ,7,A1
+110.4 ,Parma ,8,A1
+124.4 ,Terre di canossa - Campegine ,91,A1
+137.1 ,Reggio Emilia ,9,A1
+157.6 ,Modena Nord ,10,A1
+170.8 ,Modena Sud ,11,A1
+184.789 ,Valsamoggia ,96,A1
+209.8 ,Sasso Marconi ,14,A1
+222.7 ,Rioveggio ,15,A1
+237.2 ,Pian del Voglio ,16,A1
+242.3 ,Roncobilaccio ,17,A1
+261.5 ,Barberino di Mugello ,18,A1
+278.1 ,Calenzano-Sesto Fiorentino ,19,A1
+279.9 ,Firenze Nord ,20,A1
+286.9 ,Firenze Scandicci ,21,A1
+289.7 ,VILLA COSTANZA ,97,A1
+295.5 ,Firenze Impruneta ,22,A1
+300.9 ,Firenze Sud ,23,A1
+319.9 ,Incisa - Reggello ,24,A1
+335.8 ,Valdarno ,25,A1
+358.5 ,Arezzo ,26,A1
+371.6 ,MonteSanSavino ,27,A1
+385.4 ,Valdichiana ,28,A1
+409.9 ,Chiusi-Chianciano Terme ,29,A1
+427.8 ,Fabro ,30,A1
+451.4 ,Orvieto ,31,A1
+479.5 ,Attigliano ,32,A1
+491.3 ,Orte ,33,A1
+500.9 ,Magliano Sabina ,34,A1
+516.0 ,PONZANO ROMANO-SORATTE ,90,A1
+555.469 ,Guidonia Montecelio ,93,A1
+586.9 ,VALMONTONE ,705,A1
+592.9 ,COLLEFERRO ,706,A1
+603.9 ,ANAGNI-FIUGGI ,707,A1
+618.2 ,Ferentino ,786,A1
+624.2 ,Frosinone ,708,A1
+642.0 ,Ceprano ,709,A1
+658.3 ,Pontecorvo ,710,A1
+669.6 ,Cassino ,711,A1
+678.6 ,SanVittore ,712,A1
+700.8 ,Caianello ,713,A1
+719.8 ,Capua ,714,A1
+728.6 ,SantaMariaCapuaVetere ,776,A1
+733.7 ,Caserta Nord ,715,A1
+739.7 ,Napoli Nord ,779,A1
+740.6 ,Caserta Sud ,716,A1
+4.7 ,Ponticelli ,17,A3
+4.8 ,Napoli Sud ,1,A3
+8.1 ,Portici ,4,A3
+12.5 ,TORRE DEL GRECO ,5,A3
+17.5 ,TORRE ANNUNZIATA NORD ,15,A3
+19.7 ,Torre Annunziata Sud ,6,A3
+21.9 ,Pompei ,7,A3
+22.6 ,Castellammare di Stabia ,8,A3
+25.0 ,Scafati ,9,A3
+29.8 ,Angri ,10,A3
+31.83 ,Angri Sud ,18,A3
+36.7 ,Nocera Sud ,16,A3
+36.8 ,Nocera Nord ,11,A3
+42.8 ,Cava de' Tirreni ,12,A3
+24.3 ,Torino ,420,A4
+36.8 ,Borgo d'Ale ,426,A4
+45.2 ,Santhia` ,429,A4
+54.4 ,Carisio ,430,A4
+60.0 ,Balocco ,432,A4
+67.5 ,Greggio ,433,A4
+73.6 ,Biandrate-Vicolungo ,434,A4
+82.9 ,Novara Ovest ,436,A4
+90.5 ,Novara Est ,437,A4
+105.4 ,Marcallo-Mesero ,440,A4
+110.5 ,Arluno ,441,A4
+118.4 ,RHO ,442,A4
+120.9 ,Milano Ghisolfa ,443,A4
+138.2 ,Milano Est ,654,A4
+138.9 ,MONZA ,656,A4
+143.9 ,BIVIO TANGENZIALE EST ,655,A4
+145.8 ,Agrate ,653,A4
+150.0 ,Cavenago ,652,A4
+157.1 ,Trezzo ,651,A4
+160.6 ,Capriate ,650,A4
+167.7 ,Dalmine ,649,A4
+172.4 ,Bergamo ,648,A4
+179.0 ,Seriate ,647,A4
+187.6 ,Grumello ,646,A4
+190.9 ,Ponte Oglio ,645,A4
+193.1 ,Palazzolo ,644,A4
+201.3 ,Rovato ,643,A4
+206.3 ,Ospitaletto ,642,A4
+215.2 ,Brescia Ovest ,641,A4
+228.5 ,Brescia Est ,618,A4
+244.2 ,Desenzano ,617,A4
+251.6 ,Sirmione ,616,A4
+259.1 ,Peschiera ,615,A4
+270.7 ,Sommacampagna ,614,A4
+280.1 ,Verona Sud ,613,A4
+290.0 ,Verona Est ,612,A4
+302.7 ,Soave ,611,A4
+311.7 ,Montebello ,610,A4
+320.9 ,Montecchio ,609,A4
+326.9 ,Vicenza Ovest ,608,A4
+334.5 ,Vicenza Est ,607,A4
+343.6 ,Grisignano ,606,A4
+356.6 ,Padova Ovest ,605,A4
+363.6 ,Padova Est ,604,A4
+380.3 ,Spinea ,598,A4
+389.391 ,MARTELLAGO-SCORZE' ,597,A4
+400.1 ,Preganziol ,596,A4
+416.09 ,Meolo - Roncade ,513,A4
+424.6 ,SanDona`diPiave ,511,A4
+432.2 ,Cessalto ,510,A4
+438.9 ,SanStinodiLivenza ,509,A4
+467.7 ,Latisana ,507,A4
+482.7 ,SanGiorgiodiNogaro ,506,A4
+491.3 ,Palmanova ,504,A4
+506.5 ,Redipuglia ,502,A4
+515.1 ,Trieste Lisert ,501,A4
+3.7 ,Settimo Torinese ,419,A5
+3.701 ,Torino Nord ,401,A5
+4.0 ,Settimo Nord ,400,A5
+10.8 ,Volpiano ,402,A5
+24.9 ,SanGiorgio ,403,A5
+33.0 ,Scarmagno ,404,A5
+39.3 ,Ivrea ,407,A5
+53.4 ,Quincinetto ,408,A5
+57.6 ,Pont Saint Martin ,409,A5
+70.1 ,Verres ,410,A5
+81.3 ,Chatillon-Saint Vincent ,411,A5
+92.7 ,Nus ,412,A5
+100.2 ,Aosta ,414,A5
+101.1 ,Aosta est ,469,A5
+112.8 ,Aosta Ovest ,415,A5
+13.0 ,Torino ,351,A6
+13.1 ,Carmagnola ,352,A6
+34.6 ,Marene ,353,A6
+49.3 ,Fossano ,354,A6
+57.8 ,Carru` ,355,A6
+62.7 ,Mondovi` ,356,A6
+70.6 ,Niella Tanaro ,358,A6
+81.0 ,Ceva ,359,A6
+97.1 ,Millesimo ,361,A6
+109.6 ,Altare ,362,A6
+5.6 ,MILANO NORD ,1,A8
+8.1 ,Lainate ,2,A8
+29.9 ,Gallarate ,6,A8
+31.9 ,Gallarate Nord ,10,A8
+29.8 ,Fino Mornasco ,4,A9
+33.0 ,Como Grandate ,3,A9
+2.3 ,Genova Aeroporto ,215,A10
+6.0 ,Genova Pegli ,216,A10
+10.7 ,Genova Pra' ,217,A10
+20.2 ,Arenzano ,218,A10
+26.8 ,Varazze ,219,A10
+32.35 ,Celle Ligure ,220,A10
+36.4 ,Albisola ,221,A10
+52.7 ,Spotorno ,482,A10
+59.4 ,Orco Feglino ,483,A10
+63.0 ,Finale Ligure ,484,A10
+67.7 ,Pietra Ligure ,485,A10
+72.6 ,BORGHETTO SANTO SPIRITO ,497,A10
+81.2 ,Albenga ,486,A10
+93.2 ,Andora ,487,A10
+100.0 ,SanBartolomeo ,488,A10
+106.3 ,Imperia Est ,489,A10
+112.2 ,Imperia Ovest ,490,A10
+128.4 ,Arma di Taggia ,491,A10
+139.4 ,Sanremo Ovest ,493,A10
+145.8 ,Bordighera ,494,A10
+151.8 ,Ventimiglia ,495,A10
+151.801 ,Ventimiglia ,496,A10
+4.2 ,Firenze Ovest ,333,A11
+9.0 ,Prato Est ,334,A11
+16.8 ,Prato Ovest ,335,A11
+27.4 ,Pistoia ,336,A11
+39.0 ,Montecatini Terme ,337,A11
+46.4 ,Chiesina Uzzanese ,338,A11
+49.3 ,Altopascio ,339,A11
+57.2 ,Capannori ,340,A11
+66.0 ,Lucca ,344,A11
+81.0 ,Pisa Nord ,345,A11
+4.2 ,Genova Est ,260,A12
+11.5 ,Genova Nervi ,261,A12
+22.8 ,Recco ,262,A12
+28.4 ,Rapallo ,263,A12
+38.3 ,Chiavari ,264,A12
+41.1 ,Lavagna ,265,A12
+48.7 ,Sestri Levante ,266,A12
+60.5 ,Deiva Marina ,273,A12
+70.1 ,Carrodano ,274,A12
+75.8 ,Brugnato ,275,A12
+101.6 ,Sarzana ,279,A12
+110.0 ,Carrara ,280,A12
+116.4 ,Massa ,281,A12
+127.9 ,Versilia ,282,A12
+161.6 ,Pisa Centro ,287,A12
+177.8 ,Collesalvetti ,300,A12
+205.9 ,Rosignano Marittimo ,301,A12
+206.9 ,Rosignano Barriera ,302,A12
+0.6 ,Bologna Arcoveggio ,101,A13
+7.9 ,Bologna Interporto ,100,A13
+20.5 ,Altedo ,102,A13
+33.7 ,Ferrara Sud ,103,A13
+41.9 ,Ferrara Nord ,104,A13
+49.1 ,Occhiobello ,105,A13
+63.0 ,Rovigo Sud - Villamarzana ,113,A13
+70.4 ,Rovigo ,106,A13
+74.8 ,Boara ,107,A13
+88.6 ,Monselice ,108,A13
+95.0 ,Terme Euganee ,109,A13
+112.4 ,Padova industriale ,112,A13
+4.8 ,Bologna Borgo Panigale ,12,A14
+15.5 ,Bologna Fiera ,40,A14
+22.2 ,Bologna San Lazzaro ,41,A14
+38.2 ,CastelSanPietro ,38,A14
+50.1 ,Imola ,42,A14
+64.5 ,Faenza ,43,A14
+81.6 ,Forli` ,44,A14
+93.6 ,Cesena Nord ,39,A14
+99.7 ,Cesena ,45,A14
+110.069 ,Valle Rubicone ,69,A14
+117.3 ,Rimini Nord ,46,A14
+127.4 ,Rimini Sud ,47,A14
+135.4 ,Riccione ,48,A14
+143.9 ,Cattolica ,49,A14
+155.9 ,Pesaro-Urbino ,50,A14
+173.3 ,Fano ,51,A14
+185.3 ,Marotta-Mondolfo ,64,A14
+194.5 ,Senigallia ,52,A14
+207.9 ,Montemarciano ,68,A14
+213.5 ,Ancona Nord ,53,A14
+230.4 ,Ancona Sud ,54,A14
+245.5 ,Loreto-Porto Recanati ,55,A14
+262.6 ,Civitanova Marche Macerata ,56,A14
+270.82 ,Porto S. Elpidio ,67,A14
+279.5 ,Fermo ,57,A14
+287.9 ,Pedaso ,58,A14
+301.8 ,Grottammare ,66,A14
+311.7 ,SanBenedettodelTronto ,59,A14
+319.5 ,ValVibrata ,65,A14
+334.4 ,Teramo-Giulianova ,60,A14
+344.0 ,Roseto degli Abruzzi ,61,A14
+351.8 ,Atri Pineto ,62,A14
+364.2 ,Pescara Nord-Citta` Sant'Angelo ,63,A14
+380.8 ,Pescara Ovest-Chieti ,772,A14
+392.6 ,Pescara Sud-Francavilla ,771,A14
+403.8 ,Ortona ,770,A14
+413.0 ,Lanciano ,769,A14
+421.1 ,ValdiSangro ,768,A14
+437.3 ,Vasto Nord ,767,A14
+453.8 ,Vasto Sud ,766,A14
+476.1 ,Termoli Molise ,765,A14
+507.0 ,Poggio Imperiale ,764,A14
+528.6 ,SanSevero ,763,A14
+554.1 ,Foggia ,762,A14
+564.959 ,FOGGIA ZONA INDUSTRIALE ,760,A14
+589.2 ,Cerignola Est ,761,A14
+610.5 ,Canosa ,732,A14
+626.9 ,Andria-Barletta ,733,A14
+638.1 ,Trani ,734,A14
+652.4 ,Molfetta ,735,A14
+663.0 ,Bitonto ,736,A14
+672.2 ,Bari Nord ,737,A14
+677.8 ,Bari Sud ,738,A14
+697.6 ,Acquaviva delle Fonti ,739,A14
+709.6 ,Gioia del Colle ,740,A14
+723.9 ,Mottola-Castellaneta ,741,A14
+735.2 ,Taranto Nord ,742,A14
+5.2 ,Parma Ovest ,151,A15
+22.7 ,Fornovo ,152,A15
+42.1 ,Borgotaro ,153,A15
+51.0 ,Berceto ,154,A15
+74.6 ,Pontremoli ,155,A15
+91.4 ,Aulla ,156,A15
+101.7 ,La Spezia ,278,A15
+7.3 ,Pomigliano d'Arco ,718,A16
+13.2 ,Napoli Est ,780,A16
+23.528 ,Tufino ,729,A16
+26.6 ,Baiano ,720,A16
+41.1 ,Avellino Ovest ,721,A16
+49.7 ,Avellino Est ,722,A16
+68.7 ,Benevento ,723,A16
+81.7 ,Grottaminarda ,724,A16
+104.2 ,Vallata ,725,A16
+111.0 ,Lacedonia ,726,A16
+127.9 ,Candela ,727,A16
+159.9 ,Cerignola ,728,A16
