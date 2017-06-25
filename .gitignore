@@ -1,5 +1,4 @@
 /trash
-/blueprint/pages
-/blueprint/pages/*
-/blueprint/Resources/*
-/blueprint/index.html
+/bluprint/pages/*
+/bluprint/Resources/*
+/bluprint/index.html
