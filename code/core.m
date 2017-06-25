@@ -65,3 +65,22 @@ Map[Extract[exrp,#,Function[i,If[Length[Rest[#]]==0,{0},Rest[#]]:>i,HoldFirst]]&
 Clear[listRemovablePartFromEspression]
 SetAttributes[listRemovablePartFromEspression,HoldAllComplete]
 listRemovablePartFromEspression[espr_]:=positionsOfRemovablePart[removeExpressionPart[espr]]
+
+(** Select one of the possible sobstitution from a random function of documentation**)
+Clear[selectQuizFromDocumentation]
+selectQuizFromDocumentation[functionName_]:=With[
+{espr= extractRandomFunction[functionName]},
+{
+tweakFunction[espr,First[RandomChoice[listRemovablePartFromEspression[espr]]]],
+espr,
+ReleaseHold[espr]
+}
+]
+selectQuizFromDocumentation[functionName_,n_]:=With[
+{espr= extractNFunction[functionName,n]},
+{
+tweakFunction[espr,First[RandomChoice[listRemovablePartFromEspression[espr]]]],
+espr,
+ReleaseHold[espr]
+}
+]
