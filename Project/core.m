@@ -2,24 +2,19 @@ Package["Project`"]
 
 (* ::Input::Initialization:: *)
 (**Function for extracting RowBox from documentation**)
-Clear[extractFunctionFromRowBox]
 extractFunctionFromRowBox[box_]:=ToExpression[Catch @ ReplaceAll[box,f_RowBox:>Throw[f]],StandardForm,Hold]
 (**extractFunctionFromRowBox[box_]:=ToExpression[Cases[box,_BoxData,Infinity],StandardForm,Hold]**)
 
 (**Find function example in documentation as RowBox**)
-Clear[findFunctionsExampleInDoc]
 findFunctionsExampleInDoc[functionName_]:=Flatten[Lookup[WolframLanguageData[functionName,"DocumentationExampleInputs"],"BasicExamples"]]
+PackageExport[findFunctionsExampleInDoc]
 
 (**Pick a random sample from documentation about functionName**)
-Clear[extractRandomFunction]
-Clear[extractNFunction]
 extractRandomFunction[functionName_]:=extractFunctionFromRowBox[RandomChoice[findFunctionsExampleInDoc[functionName]]]
 extractNFunction[functionName_,n_]/; 0<n&&n<=Length[findFunctionsExampleInDoc[functionName]]:=extractFunctionFromRowBox[findFunctionsExampleInDoc[functionName][[n]]]
 
 (**Substitute part of the function with ?**)
-Clear[tweakFunction]
 (**SetAttributes[tweakFunction,HoldFirst]**)
-ClearAttributes[tweakFunction,HoldFirst]
 tweakFunction[Hold[expr_]]:=With[
 {l=RandomInteger[{0,Length[Unevaluated[expr]]}]},
 ReplacePart[HoldForm[expr],{1,l}->Placeholder["?"]]]
@@ -31,7 +26,6 @@ tweakFunction[Hold[expr_],n_List]:=With[
 ReplacePart[HoldForm[expr],{1,s}->Placeholder["?"]]]
 
 (**This function sobstitute all the keyword in pattern_ as Placeholder.**)
-Clear[removeExpressionPart]
 SetAttributes[removeExpressionPart,HoldAllComplete]
 (**pattern=_Symbol?SymbolQ**)
 removeExpressionPart[expr_]:=With[
@@ -44,8 +38,6 @@ removeExpressionPart[expr_]:=With[
  making it harder to guess but still meaningful.
 It avoid selecting path to Placeholder, Hold, Rule,RuleDelayed, List, etc..
 **)
-Clear[positionsOfRemovablePart]
-Clear[symbolQ]
 SetAttributes[positionsOfRemovablePart,HoldAllComplete]
 (**avoidedEspression = Placeholder|_Placeholder|_Hold|_Rule|_RuleDelayed|_List|_List|_Random|_RandomInteger**)
 SetAttributes[symbolQ,HoldAllComplete]
