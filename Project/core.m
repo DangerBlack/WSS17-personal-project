@@ -2,16 +2,20 @@ Package["Project`"]
 
 (* ::Input::Initialization:: *)
 (**Function for extracting RowBox from documentation**)
-extractFunctionFromRowBox[box_]:=ToExpression[Catch @ ReplaceAll[box,f_RowBox:>Throw[f]],StandardForm,Hold]
-(**extractFunctionFromRowBox[box_]:=ToExpression[Cases[box,_BoxData,Infinity],StandardForm,Hold]**)
+(**extractFunctionFromRowBox[box_RowBox]:=ToExpression[Catch @ ReplaceAll[box,f_RowBox:>Throw[f]],StandardForm,hold]**)
+extractFunctionFromRowBox[box_]:=ToExpression[Cases[box,_BoxData,Infinity],StandardForm,hold]
 
 (**Find function example in documentation as RowBox**)
 findFunctionsExampleInDoc[functionName_]:=Flatten[Lookup[WolframLanguageData[functionName,"DocumentationExampleInputs"],"BasicExamples"]]
-PackageExport[findFunctionsExampleInDoc]
 
 (**Pick a random sample from documentation about functionName**)
 extractRandomFunction[functionName_]:=extractFunctionFromRowBox[RandomChoice[findFunctionsExampleInDoc[functionName]]]
 extractNFunction[functionName_,n_]/; 0<n&&n<=Length[findFunctionsExampleInDoc[functionName]]:=extractFunctionFromRowBox[findFunctionsExampleInDoc[functionName][[n]]]
+
+SetAttributes[extractAllExampleInDoc,{HoldAllComplete,Listable}]
+extractAllExampleInDoc[functionName_String] := Map[extractFunctionFromRowBox,findFunctionsExampleInDoc[functionName]]
+extractAllExampleInDoc[functionName_Symbol] := extractAllExampleInDoc @@ {SymbolName[Unevaluated[functionName]]}
+PackageExport[extractAllExampleInDoc]
 
 (**Substitute part of the function with ?**)
 (**SetAttributes[tweakFunction,HoldFirst]**)
