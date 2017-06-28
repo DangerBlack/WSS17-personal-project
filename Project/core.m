@@ -3,7 +3,7 @@ Package["Project`"]
 (* ::Input::Initialization:: *)
 (**Function for extracting RowBox from documentation**)
 (**extractFunctionFromRowBox[box_RowBox]:=ToExpression[Catch @ ReplaceAll[box,f_RowBox:>Throw[f]],StandardForm,hold]**)
-extractFunctionFromRowBox[box_] := Map[ToExpression[Cases[#,_BoxData,Infinity],StandardForm,hold]&,box]
+extractFunctionFromRowBox[box_] := Flatten[Map[ToExpression[Cases[#,_BoxData,Infinity],StandardForm,hold]&,box],1]
 
 (**Find function example in documentation as RowBox**)
 (*findFunctionsExampleInDoc[functionName_]:=Flatten[Lookup[WolframLanguageData[functionName,"DocumentationExampleInputs"],"BasicExamples"]]*)
@@ -11,11 +11,13 @@ findFunctionsExampleInDoc[functionName_]:=Lookup[WolframLanguageData[functionNam
 
 (**Pick a random sample from documentation about functionName**)
 extractRandomFunction[functionName_]:=extractFunctionFromRowBox[RandomChoice[findFunctionsExampleInDoc[functionName]]]
-extractNFunction[functionName_,n_]/; 0<n&&n<=Length[findFunctionsExampleInDoc[functionName]]:=extractFunctionFromRowBox[findFunctionsExampleInDoc[functionName][[n]]]
+(**extractNFunction[functionName_,n_]
+				/; 0<n&&n<=Length[findFunctionsExampleInDoc[functionName]]:=
+				extractFunctionFromRowBox[findFunctionsExampleInDoc[functionName][[n]]]**)
 
 SetAttributes[extractAllExampleInDoc,{HoldAllComplete,Listable}]
 extractAllExampleInDoc[functionName_String] := Map[extractFunctionFromRowBox,findFunctionsExampleInDoc[functionName]]
-extractAllExampleInDoc[functionName_Symbol] := extractAllExampleInDoc @@ {SymbolName[Unevaluated[functionName]]}
+extractAllExampleInDoc[functionName_Symbol] := extractAllExampleInDoc @@ SymbolName[Unevaluated[functionName]]
 PackageExport[extractAllExampleInDoc]
 
 (**Substitute part of the function with ?**)
@@ -78,24 +80,31 @@ PackageExport[listRemovablePartFromEspression]
 
 (** Select one of the possible sobstitution from a random function of documentation**)
 selectQuizFromCategorySafeExample[category_, categorySafeExample_] :=
-
   With[
   	{ acsfNoS = Map[First[#] -> Keys[Last[#]] &, categorySafeExample] },
-  With[
-   	{ problem = RandomChoice[acsfNoS[[category, 2]]] },
-   	With[
-    		  {head = First[First[problem]], 
-     tail = {Rest[First[problem]], Rest[problem]}},
-    		   {
-     			problem,
-     			Flatten[{{tweakFunction[Hold @@ Echo@head, 
-         First[RandomChoice[
-           listRemovablePartFromEspression[Unevaluated @@ head]]]]}, 
-       tail}, 2],
-     			Apply[Identity, problem, {2}]
-     		}
-    	      ]
-         ]
+  	With[
+   		{ problem = RandomChoice[acsfNoS[[category, 2]]] },
+   		With[
+		  	{
+		  		head = First[problem], 
+				tail = Rest[problem]
+			},
+		   {
+				problem,
+				Flatten[{
+							{tweakFunction[
+											Hold @@ head, 
+											First[RandomChoice[
+		           									listRemovablePartFromEspression[Unevaluated @@ head]
+		           									]
+		           								]
+		           							]
+		           			}, 
+		       			tail}, 1],
+		     			List @@ hold @@ problem
+		    }
+    	]
+    ]
   ]
 
 PackageExport[selectQuizFromCategorySafeExample]
