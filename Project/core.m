@@ -89,20 +89,26 @@ selectQuizFromCategorySafeExample[category_, categorySafeExample_] :=
 		  		head = First[problem], 
 				tail = Rest[problem]
 			},
-		   {
-				problem,
-				Flatten[{
-							{tweakFunction[
-											Hold @@ head, 
-											First[RandomChoice[
-		           									listRemovablePartFromEspression[Unevaluated @@ head]
-		           									]
-		           								]
-		           							]
-		           			}, 
-		       			tail}, 1],
-		     			List @@ hold @@ problem
-		    }
+			With[
+				{
+					l = listRemovablePartFromEspression[Unevaluated @@ head]
+				},
+				{
+					r = RandomChoice[l]
+				},
+			   {
+					problem,
+					Flatten[{
+								{tweakFunction[
+												Hold @@ head, 
+												First[r]
+			           							]
+			           			}, 
+			       			tail}, 1],
+			     	List @@ hold @@ problem,
+			     	r
+			    }
+			]
     	]
     ]
   ]

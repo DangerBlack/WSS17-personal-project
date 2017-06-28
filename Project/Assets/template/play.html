@@ -5,7 +5,7 @@
         <div class="col-md-8"></div>
         <div class="col-md-2">
                 <p class="username">`userInfo`</p>
-                <p class="point">`point` pt</p>
+                <p >Score: <span class="point">`point` pt</span></p>
         </div>      
     </div>
     <div class="row">
@@ -22,16 +22,17 @@
                         <span class="wolframInputSide">Out[1]=</span> <span  class="question">`example`</span>
                     </p>
                 </div>
+                <div class="col-md-12 spacetop">
+                    `userInputForm`
+                </div>
             </div>
         </div>
         <div class="col-md-2"></div>
     </div>
     <div class="row">
         <div class="col-md-12">
-            <p class="centered">
-                <wolfra:slot id="userInputForm">
-                    <input type="text" />
-                </wolfra:slot>
+            <p class="white" style="color:white">
+                `tooltip`
             </p>
         </div>
     </div>
