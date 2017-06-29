@@ -5,8 +5,9 @@ SetAttributes[hold, {HoldAll, SequenceHold, Flat}]
 
 PackageExport[hold]
 
-$whitelist := $whitelist=Get[FileNameJoin[{PacletManager`PacletResource["Project", "Assets"], "category.m"}]]
-$wholewhitelist := $wholewhitelist=DeleteDuplicates[Flatten[Map[Values, $whitelist]]]
+(**$whitelist := $whitelist=Get[FileNameJoin[{PacletManager`PacletResource["Project", "Assets"], "category.m"}]]
+$wholewhitelist := $wholewhitelist=DeleteDuplicates[Flatten[Map[Values, $whitelist]]]**)
+
 
 getKeys[whitelist_] := With[
 							{keys =Echo@ Keys[whitelist]},
@@ -28,8 +29,8 @@ loadAllCategorySafeExample[whitelist_,wholewhitelist_]:=
 			Map[First[#] -> filterUnsafeExpression[Last[#],safeExprList] &, whitelist]
 		]
 
-PackageExport[$whitelist]
-PackageExport[$wholewhitelist]
+(*PackageExport[$whitelist]
+PackageExport[$wholewhitelist]*)
 PackageExport[getKeys]
 PackageExport[loadAllExample]
 PackageExport[loadAllFilteredSymbolExample]

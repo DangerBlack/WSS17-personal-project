@@ -1,0 +1,9 @@
+<wolfram:get path='template/main.html'>
+  <wolfram:slot id="content">
+    <wolfram:sequence values="Range[1,#n]">
+              <div class="col-sm-2 category">
+                <p><a class="cat`1`" href="`AppRoot`category/`1`"><* #keys[[#1]] *></a></p>
+              </div>
+	</wolfram:sequence>
+  </wolfram:slot>
+</wolfram:get>

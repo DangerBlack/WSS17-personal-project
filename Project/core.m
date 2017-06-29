@@ -64,7 +64,7 @@ Tooltip: Use _Placeholder for The Whole element, use Placeholder for only the he
  List[1,2,4] \[Rule]  \[Placeholder][1,2,3]  avoid this happen with List
 List[1,2,4] \[Rule]  List[\[Placeholder],2,3]  avoid this happen in the other removeExpressionPart
 **)
-symbolQ[Placeholder|Hold|Rule|RuleDelayed|List|Random|RandomInteger|hold]:=False
+symbolQ[Placeholder|Hold|Rule|RuleDelayed|List|Random|RandomInteger|hold|Unevaluated]:=False
 symbolQ[_]:=True
 
 positionsOfRemovablePart[exrp_]:=With[
