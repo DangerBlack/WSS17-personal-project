@@ -1,9 +1,26 @@
 <wolfram:get path='template/main.html'>
   <wolfram:slot id="content">
-    <wolfram:sequence values="Range[1,#n]">
-              <div class="col-sm-2 category">
-                <p><a class="cat`1`" href="`AppRoot`category/`1`"><* #keys[[#1]] *></a></p>
-              </div>
-	</wolfram:sequence>
+  	<div class="row">
+  		<div class="col-md-1"></div>
+  		<div class="col-md-10">
+  			<div class="row">
+  				<div class="col-md-12">
+  					<h1>Choose a topic</h1>
+  					<hr />
+  				</div>
+  				<div class="col-md-12">
+				  	<div class="col-sm-2 category">
+				                <p><a class="cat0" href="`AppRoot`category/0">All</a></p>
+				    </div>
+				    <wolfram:sequence values="Range[1,#n]">
+				              <div class="col-sm-2 category">
+				                <p><a class="cat`1`" href="`AppRoot`category/<* StringReplace[ToLowerCase[#keys[[#1]]]," "->"-"] *>/"><* #keys[[#1]] *></a></p>
+				              </div>
+					</wolfram:sequence>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-1"></div>
+	</div>
   </wolfram:slot>
 </wolfram:get>

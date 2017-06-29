@@ -1,0 +1,16 @@
+<wolfram:get path='template/main.html'>
+  <wolfram:slot id="content">
+    <div class="row">
+    	<div class="col-md-2">
+    		`topic`
+    	</div>
+    	<div class="col-md-8">
+    		<h1>Select difficulty level</h1>
+    		<p><a href="`AppRoot`category/`cat`/easy/" class="btn btn-lg btn-success difficulty">Easy</a>
+    		<a href="`AppRoot`category/`cat`/medium/" class="btn btn-lg btn-warning difficulty">Medium</a>
+    		<a href="`AppRoot`category/`cat`/hard/" class="btn btn-lg btn-danger difficulty">Hard</a></p>
+    	</div>
+    	<div class="col-md-2"></div>
+    </div>
+  </wolfram:slot>
+</wolfram:get>

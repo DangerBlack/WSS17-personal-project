@@ -26,27 +26,63 @@ templateResponse[template_, context_, meta_:<||>] :=
 		meta
 	]
 
+customHash[expr_, rest___] := 	
+	IntegerString[Hash[{expr, "chiavesegreta"}, rest], 36]
+signList[s_List] :=
+ 	With[{l = Map[ToString, s]},
+  	StringJoin[Riffle[Append[l, customHash[l, "SHA256"]], ":"]]
+  ]
+unsign[{l__, h_}] :=
+	 If[MatchQ[customHash[{l}, "SHA256"], h], {l}, $Failed]
+unsign[s_String] :=
+ 	unsign[StringSplit[s, ":"]]
+unsign[__] := $Failed
+
+chooseCategory[template_,keys_] :=
+	templateResponse[
+					template, {
+					"keys":>keys,
+					"n":>Length[keys]
+				}]
+
+chooseDifficulty[template_, topic_, cat_] :=
+	templateResponse[
+					template, {
+					"cat"->cat,
+					"topic"->topic
+				}]
+
+generateExercise[template_,dictionaryKey_ , cat_, keys_, difficulty_ ] :=
+	With[
+		{exercise=99},
+		HTTPRedirect[StringJoin[$AppRoot,"category/",cat,"/",difficulty,"/",ToString[exercise]]]
+	](*Lookup[dictionaryKey,cat]*)
+
+
+difficulties = "easy"|"medium"|"hard";
+
 $CompleteExpressionApp = With[{
 	playOrLoginTemplate     = templateLoader["playOrLogin.html"],
 	categoryTemplate     	= templateLoader["category.html"], 
-	home     				= templateLoader["play.html"], 
+	difficultyTemplate     	= templateLoader["difficulty.html"], 
+	playTemplate			= templateLoader["play.html"], 
 	detail   				= templateLoader["selectLoginPlay.html"],
 	notfound 				= templateLoader["404.html"],
 	keys = Keys[$whitelist],
+	category = Keys[getKeys[$whitelist]],
+	dictionaryKey = getKeys[$whitelist],
 	acsf = loadAllCategorySafeExample[$whitelist, $wholewhitelist]
-	
 	},
 	URLDispatcher[{
-		"/" ~~ EndOfString -> templateResponse[
+		"/" ~~ EndOfString :> templateResponse[
 					playOrLoginTemplate, {
 				}],
-		"/category/" ~~ EndOfString ->
- 				templateResponse[
-					categoryTemplate, {
-					"keys"->keys,
-					"n"->Length[keys]
-				}
-			],
+		"/category/" ~~ EndOfString :>
+		 				chooseCategory[categoryTemplate,keys],
+		"/category/" ~~ cat : category .. ~~ "/" ~~ EndOfString :>
+		 				chooseDifficulty[difficultyTemplate,keys[[Lookup[dictionaryKey,cat]]],cat],
+		"/category/" ~~ cat : category .. ~~ "/" ~~ difficulty : difficulties ~~ "/" ~~EndOfString :>
+		 				generateExercise[playTemplate,dictionaryKey,cat,keys,difficulty],
 		"/" ~~ EndOfString :> Replace[
 			$SnowFlakerForm[Replace[HTTPRequestData["FormRules"], {} -> None]],
 			form_FormFunction :> 

@@ -9,11 +9,6 @@ PackageExport[hold]
 $wholewhitelist := $wholewhitelist=DeleteDuplicates[Flatten[Map[Values, $whitelist]]]**)
 
 
-getKeys[whitelist_] := With[
-							{keys =Echo@ Keys[whitelist]},
-							Table[keys[[i]] -> i, {i, 1, Length[keys]}]
-						]
-
 
 loadAllExample[wholewhitelist_] := Flatten[Map[extractAllExampleInDoc, wholewhitelist],1]
 loadAllSymbolExample[wholewhitelist_]:=Map[# -> DeleteDuplicates@extractAllSymbols[#] &, loadAllExample[wholewhitelist]];
@@ -31,7 +26,7 @@ loadAllCategorySafeExample[whitelist_,wholewhitelist_]:=
 
 (*PackageExport[$whitelist]
 PackageExport[$wholewhitelist]*)
-PackageExport[getKeys]
+
 PackageExport[loadAllExample]
 PackageExport[loadAllFilteredSymbolExample]
 PackageExport[loadAllCategorySafeExample]
