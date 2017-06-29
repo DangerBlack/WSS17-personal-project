@@ -6,6 +6,7 @@ SetAttributes[hold, {HoldAll, SequenceHold, Flat}]
 PackageExport[hold]
 PackageExport[$wholewhitelist]
 PackageExport[$DataBase]
+PackageExport[extractAllSymbols]
 
 $whitelist      := $whitelist      = Get[FileNameJoin[{PacletManager`PacletResource["Project", "Assets"], "category.m"}]]
 $wholewhitelist := $wholewhitelist = DeleteDuplicates[Join @@  $whitelist]

@@ -1,5 +1,7 @@
 Package["Project`"]
 
+PackageExport[tweakFunction]
+
 (* ::Input::Initialization:: *)
 (**Function for extracting RowBox from documentation**)
 (**extractFunctionFromRowBox[box_RowBox]:=ToExpression[Catch @ ReplaceAll[box,f_RowBox:>Throw[f]],StandardForm,hold]**)
@@ -20,6 +22,40 @@ extractAllExampleInDoc[functionName_String] := Map[extractFunctionFromRowBox,fin
 extractAllExampleInDoc[functionName_Symbol] := extractAllExampleInDoc @@ SymbolName[Unevaluated[functionName]]
 PackageExport[extractAllExampleInDoc]
 
+
+MakeBoxes /: MakeBoxes[placeholder[n_, __], StandardForm] := 
+	ToBoxes[Placeholder[n]]
+
+relaseAllPlaceholder[expr_, answers_] := 
+ ReleaseHold@Hold[expr] /. placeholder[x_, __] :> Block[{}, answers[[x]]/; True]
+
+replaceHeadPlaceholder[expr_, heads_]:=
+	ReplaceAll[expr, Echo@MapIndexed[ToExpression[#, StandardForm, HoldPattern] -> placeholder[First[#2], #1] &, heads]]
+
+SetAttributes[removeExpressionPart,HoldAllComplete]
+(**pattern=_Symbol?SymbolQ**)
+removeExpressionPart[expr_]:=With[
+	{pattern=_Image|_Graph|_Graphics|_Graphics3D|_Random|_RandomWord},
+	expr/.pattern->garbage[]
+]
+avoidedEspression = 
+ "Placeholder" | "Placeholder" | "Hold" | "Rule" | "RuleDelayed" | 
+  "List" | "List" | "Random" | "RandomInteger"
+
+tweakFunction[expr_,difficulty_Integer]:=
+	With[
+		{symbols=Echo@RandomSample[
+				Echo@Cases[
+							Flatten@Map[extractAllSymbols,removeExpressionPart[expr]],
+							Except[avoidedEspression]
+					],UpTo[difficulty]
+				]
+		},
+		replaceHeadPlaceholder[expr,symbols]
+	]
+tweakFunction[expr_,difficulty_String]:=
+	tweakFunction[expr,1]
+(*
 (**Substitute part of the function with ?**)
 (**SetAttributes[tweakFunction,HoldFirst]**)
 tweakFunction[Hold[expr_]]:=With[
@@ -114,3 +150,4 @@ selectQuizFromCategorySafeExample[category_, categorySafeExample_] :=
   ]
 
 PackageExport[selectQuizFromCategorySafeExample]
+*)
