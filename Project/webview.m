@@ -54,10 +54,18 @@ chooseDifficulty[template_, topic_, cat_] :=
 
 generateExercise[template_,dictionaryKey_ , cat_, keys_, difficulty_ ] :=
 	With[
-		{exercise=99},
-		HTTPRedirect[StringJoin[$AppRoot,"category/",cat,"/",difficulty,"/",ToString[exercise]]]
+		{seed=RandomInteger[{1,1000}]},
+		HTTPRedirect[StringJoin[$AppRoot,"category/",cat,"/",difficulty,"/",signList[{dictionaryKey[[cat]],difficulty,seed}]]]
 	](*Lookup[dictionaryKey,cat]*)
 
+playGame[___]:=
+	templateResponse[
+			template,
+			<||>,
+			<|"StatusCode" -> 404|>
+			]
+
+(*exerciseID=RandomInteger[{1,Length[$whitelist[dictionaryKey[[cat]]]]}],*)
 
 difficulties = "easy"|"medium"|"hard";
 
@@ -83,6 +91,8 @@ $CompleteExpressionApp = With[{
 		 				chooseDifficulty[difficultyTemplate,keys[[Lookup[dictionaryKey,cat]]],cat],
 		"/category/" ~~ cat : category .. ~~ "/" ~~ difficulty : difficulties ~~ "/" ~~EndOfString :>
 		 				generateExercise[playTemplate,dictionaryKey,cat,keys,difficulty],
+		"/category/" ~~ cat : category .. ~~ "/" ~~ difficulty : difficulties ~~ "/" ~~ exerciseInfo : RegularExpression["[a-zA-Z0-9:]*"] ~~ "/" ~~EndOfString :>
+		 				playGame[notfound,dictionaryKey,cat,keys,difficulty,exerciseInfo],
 		"/" ~~ EndOfString :> Replace[
 			$SnowFlakerForm[Replace[HTTPRequestData["FormRules"], {} -> None]],
 			form_FormFunction :> 
