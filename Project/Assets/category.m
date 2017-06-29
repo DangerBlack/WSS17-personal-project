@@ -1,4 +1,4 @@
-{"Elementary Arithmetic" -> List["List", "Plus", "Times", "Power"],
+<|"Elementary Arithmetic" -> List["List", "Plus", "Times", "Power"],
 "Introducing Functions" -> List["List", "Subtract", "Times", "Plus", "Divide", "Power", "Max"],
 "First Look at Lists" -> List["List", "Range", "Reverse", "Join", "ListPlot"],
 "Displaying Lists" -> List["List", "BarChart", "PieChart", "Range", "Reverse", "Column", "NumberLinePlot", "Table", "Join", "ListLinePlot", "Times", "Power"],
@@ -40,4 +40,4 @@
 "String Patterns and Templates " -> List["List", "StringReplace", "Rule", "Sort", "StringCases", "WikipediaData", "StringExpression", "DigitCharacter", "Shortest", "Pattern", "BlankSequence", "Grid", "Table", "StringTemplate", "Plus", "Select", "IntegerName", "Function", "StringMatchQ", "Slot", "BlankNullSequence", "First", "TextSentences", "RuleDelayed", "Whitespace", "LetterCharacter", "ToUpperCase", "BarChart", "KeySort", "Counts", "StringTake", "Map", "TextString", "EntityList", "EntityClass", "ChartLabels", "Automatic", "Power"],
 "Datasets" -> List["List", "Set", "Button", "CloudGet", "Inherited", "Rule", "BaseStyle", "WordCloud", "Normal", "All", "Length", "BarChart", "ChartLabels", "Automatic", "SortBy", "Function", "Slot", "Max", "Total", "Sort", "Median", "RightComposition", "Select", "Greater", "Quantity", "Times", "Power", "Keys", "Association", "Map", "StringLength", "WikipediaData", "EntityList", "EntityClass", "ResourceData", "TakeLargest", "Histogram", "Differences", "GeoListPlot", "Span", "GeoLabels", "True", "TakeLargestBy"],
 "Writing Good Code" -> List["List", "Total", "Table", "Times", "Plus", "Nest", "Function", "Power", "Slot", "Flatten", "Array", "ListLinePlot", "First", "Timing", "Sort", "Range"],
-"Debugging Your Code" -> List["List", "Counts", "Map", "Function", "If", "Greater", "StringLength", "Slot", "StringTake", "Nothing", "WordList", "First", "Last", "Reap", "Fold", "Plus", "Times", "Sow", "Nest", "EvenQ", "Power"]}
+"Debugging Your Code" -> List["List", "Counts", "Map", "Function", "If", "Greater", "StringLength", "Slot", "StringTake", "Nothing", "WordList", "First", "Last", "Reap", "Fold", "Plus", "Times", "Sow", "Nest", "EvenQ", "Power"]|>
