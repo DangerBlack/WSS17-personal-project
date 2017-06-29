@@ -68,18 +68,20 @@ playGame[template_,failTemplate_, cat_, keys_, exerciseInfo_ ]:=
 					SeedRandom[seed];
 					With[
 						{
-							quiz = {1,2,3,4->"bob"}(*selectQuizFromCategorySafeExample[catId, $allExample]*)
+							expression = tweakFunction[$DataBase["Examples"][exId],difficulty]
 						},
 				 		templateResponse[
 							template,
 							{
 								"userInfo" -> First[StringSplit[ToString[$RequesterWolframID], "@"]],
 								"topic" -> $DataBase["CategoriesNames"][cat],
-								"question" -> Rasterize[Column[HoldForm@@@$DataBase["Examples"][exId]]],
+								"question" -> Rasterize[Column[HoldForm@@@expression
+															  ]
+														],
 								(*Rasterize[Column[HoldForm @@@ $DataBase["Examples"][examples]]],*)
 								"example" -> Rasterize[Column[Identity @@@ $DataBase["Examples"][exId]],ImageFormattingWidth->600],
 								"point" -> 100,	
-								"tooltip" -> Last[quiz[[4]]]
+								"exerciseInfo" -> exerciseInfo
 							}
 						]
 					]
