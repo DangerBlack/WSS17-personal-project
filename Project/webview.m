@@ -52,19 +52,35 @@ chooseDifficulty[template_, topic_, cat_] :=
 					"topic"->topic
 				}]
 
-generateExercise[template_,dictionaryKey_ , cat_, keys_, difficulty_ ] :=
+generateSeed[dictionaryKey_ , cat_, keys_, difficulty_ ] :=
 	With[
 		{seed=RandomInteger[{1,1000}]},
-		HTTPRedirect[StringJoin[$AppRoot,"category/",cat,"/",difficulty,"/",signList[{dictionaryKey[[cat]],difficulty,seed}]]]
-	](*Lookup[dictionaryKey,cat]*)
+		HTTPRedirect[StringJoin[$AppRoot,"category/",cat,"/",difficulty,"/",signList[{dictionaryKey[[cat]],difficulty,seed}],"/"]]
+	]
 
-playGame[___]:=
+(*Lookup[dictionaryKey,cat]*)
+
+playGame[template_, dictionaryKey_, cat_, keys_, difficulty_, exerciseInfo_ ]:=
 	templateResponse[
-			template,
+			notfound,
 			<||>,
-			<|"StatusCode" -> 404|>
+			<|"StatusCode" -> 200|>
 			]
-
+	(*With[
+		{l=unsign[exerciseInfo]},
+ 		{quiz = Echo@selectQuizFromCategorySafeExample[34, acsf]},
+		templateResponse[
+			template,
+			{
+				"userInfo" -> First[StringSplit[ToString[$RequesterWolframID], "@"]],
+				"topic" -> Keys[$whitelist][[34]],
+				"question" -> Rasterize[Column[HoldForm @@@ quiz[[2]]]],
+				"example" -> Rasterize[Column@quiz[[3]],ImageFormattingWidth->600],
+				"point" -> 100,	
+				"tooltip" -> Last[quiz[[4]]]
+			}
+		]
+	]*)
 (*exerciseID=RandomInteger[{1,Length[$whitelist[dictionaryKey[[cat]]]]}],*)
 
 difficulties = "easy"|"medium"|"hard";
@@ -90,9 +106,9 @@ $CompleteExpressionApp = With[{
 		"/category/" ~~ cat : category .. ~~ "/" ~~ EndOfString :>
 		 				chooseDifficulty[difficultyTemplate,keys[[Lookup[dictionaryKey,cat]]],cat],
 		"/category/" ~~ cat : category .. ~~ "/" ~~ difficulty : difficulties ~~ "/" ~~EndOfString :>
-		 				generateExercise[playTemplate,dictionaryKey,cat,keys,difficulty],
+		 				generateSeed[dictionaryKey,cat,keys,difficulty],
 		"/category/" ~~ cat : category .. ~~ "/" ~~ difficulty : difficulties ~~ "/" ~~ exerciseInfo : RegularExpression["[a-zA-Z0-9:]*"] ~~ "/" ~~EndOfString :>
-		 				playGame[notfound,dictionaryKey,cat,keys,difficulty,exerciseInfo],
+		 				playGame[playTemplate,dictionaryKey,cat,keys,difficulty,exerciseInfo],
 		"/" ~~ EndOfString :> Replace[
 			$SnowFlakerForm[Replace[HTTPRequestData["FormRules"], {} -> None]],
 			form_FormFunction :> 
