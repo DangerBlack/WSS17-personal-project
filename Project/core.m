@@ -53,8 +53,12 @@ tweakFunction[expr_,difficulty_Integer]:=
 		},
 		replaceHeadPlaceholder[expr,symbols]
 	]
-tweakFunction[expr_,difficulty_String]:=
+tweakFunction[expr_,difficulty_String]/;difficulty=="easy":=
 	tweakFunction[expr,1]
+tweakFunction[expr_,difficulty_String]/;difficulty=="medium":=
+	tweakFunction[expr,1]
+tweakFunction[expr_,difficulty_String]/;difficulty=="hard":=
+	tweakFunction[expr,2]
 (*
 (**Substitute part of the function with ?**)
 (**SetAttributes[tweakFunction,HoldFirst]**)
