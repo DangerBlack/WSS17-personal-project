@@ -1,6 +1,7 @@
 Package["Project`"]
 
 PackageExport[tweakFunction]
+PackageExport[calculateScore]
 
 (* ::Input::Initialization:: *)
 (**Function for extracting RowBox from documentation**)
@@ -58,12 +59,21 @@ tweakFunction[expr_,difficulty_Integer]:=
 		},
 		replaceHeadPlaceholder[expr,symbols]
 	]
-tweakFunction[expr_,difficulty_String]/;difficulty=="easy":=
+tweakFunction[expr_, "easy"]:=
 	tweakFunction[expr,1]
-tweakFunction[expr_,difficulty_String]/;difficulty=="medium":=
+tweakFunction[expr_, "medium"]:=
 	tweakFunction[expr,1]
-tweakFunction[expr_,difficulty_String]/;difficulty=="hard":=
+tweakFunction[expr_, "hard"]:=
 	tweakFunction[expr,2]
+
+
+calculateScore[basePoint_Integer, seed_, exId_]:=basePoint
+
+calculateScore["easy", seed_, exId_]:=calculateScore[10,seed,exId]
+calculateScore["medium", seed_, exId_]:=calculateScore[15,seed,exId]
+calculateScore["hard", seed_, exId_]:=calculateScore[35,seed,exId]
+	
+
 (*
 (**Substitute part of the function with ?**)
 (**SetAttributes[tweakFunction,HoldFirst]**)

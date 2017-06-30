@@ -3,10 +3,6 @@ Package["Project`"]
 PackageExport[$store]
 PackageExport[$uuid]
 
-$store := $store = getSettings["database.m",CreateCloudExpression[<| |>]]
-
-$uuid := $uuid = getSettings["uuid.m",CreateUUID[]]
-
 SetAttribute[getSettings,HoldRest]
 getSettings[path_,failCallback_]:=
 	With[
@@ -22,6 +18,10 @@ getSettings[path_,failCallback_]:=
 			]
 		]
 	]
+
+$store  = getSettings["database.m",CreateCloudExpression[<| |>]]
+
+$uuid  = getSettings["uuid.m",CreateUUID[]]
 (*
 database = CreateCloudExpression[<| |>]
 

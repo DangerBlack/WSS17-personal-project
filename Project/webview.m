@@ -89,9 +89,11 @@ playGame[template_,failTemplate_, cat_, keys_, exerciseInfo_ ]:=
 														],
 								(*Rasterize[Column[HoldForm @@@ $DataBase["Examples"][examples]]],*)
 								"example" -> Rasterize[Column[Identity @@@ $DataBase["Examples"][exId]],ImageFormattingWidth->600],
-								"point" -> 100,	
+								"point" -> getCurrentPoint[],	
 								"exerciseInfo" -> exerciseInfo,
-								"category"->cat
+								"category"->cat,
+								"numberOfSolution"->Length[getSolution[expression]],
+								"tips"-> If[difficulty=="easy",StringLength@Values[First[getSolution[expression]]],"nope"]
 							}
 						]
 					]
@@ -114,15 +116,18 @@ guessGame[cat_, exerciseInfo_ ,solution_]:=
 							expression = tweakFunction[$DataBase["Examples"][exId],difficulty]
 						},
 				 		If[MatchQ[Values[getSolution[expression]],{solution}],
-				 			HTTPRedirect[$AppRoot <> "category/" <> cat <> "/success/" <> exerciseInfo <> "/" <> solution <> "/" ],
+				 			( 
+				 				addPoint[difficulty, seed, exId, calculateScore[difficulty,seed,exId]];
+				 				HTTPRedirect[$AppRoot <> "category/" <> cat <> "/success/" <> exerciseInfo <> "/" <> solution <> "/" ]
+				 			),				 			
 				 			HTTPRedirect[$AppRoot <> "category/" <> cat <> "/lose/"<> exerciseInfo <> "/" <> solution <> "/" ]
 				 		]
 					]
 				),
 			$Failed :> templateResponse[
-			failTemplate,
-			<||>,
-			<|"StatusCode" -> 404|>
+				failTemplate,
+				<||>,
+				<|"StatusCode" -> 400|>
 			]
 		}
 	]
@@ -134,15 +139,18 @@ winGame[template_,cat_,exerciseInfo_,solution_]:=
 					SeedRandom[seed];
 					With[
 						{
-							expression = tweakFunction[$DataBase["Examples"][exId],difficulty]
+							expression = tweakFunction[$DataBase["Examples"][exId],difficulty],
+							earnedPoint = getExercisePoint[difficulty,seed,exId],
+							point = getCurrentPoint[]
 						},
 				 		templateResponse[
 							template,
 							{
 								"userInfo" -> First[StringSplit[ToString[$RequesterWolframID], "@"]],
 								"topic" -> $DataBase["CategoriesNames"][cat],
-								"point" -> 150,
-								"earnedPoint"-> 50,	
+								"point" -> point,
+								"earnedPoint"-> earnedPoint["point"],
+								"date":> DateString[earnedPoint["date"]],
 								"exerciseInfo" -> exerciseInfo,
 								"category"->cat,
 								"difficulty"->difficulty
