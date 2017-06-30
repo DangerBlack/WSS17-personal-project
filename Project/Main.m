@@ -9,7 +9,7 @@ $TemplatePath = Prepend[$TemplatePath,PacletManager`PacletResource["Project", "A
 
 buildKey[text_]:= StringReplace[ToLowerCase[text]," "->"-"]
 customHash[expr_, rest___] := 	
-	IntegerString[Hash[{expr, "d15f2334-4dab-4618-875b-e1d3632e3276"}, rest], 36]
+	IntegerString[Hash[{expr, $uuid}, rest], 36]
 
 (*)
 getKeysToNameCategory[whitelist_] := With[

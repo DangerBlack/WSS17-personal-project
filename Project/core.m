@@ -49,8 +49,8 @@ avoidedEspression =
 
 tweakFunction[expr_,difficulty_Integer]:=
 	With[
-		{symbols=Echo@RandomSample[
-				Echo@Cases[
+		{symbols=RandomSample[
+				Cases[
 							Flatten@Map[extractAllSymbols,removeExpressionPart[expr]],
 							Except[avoidedEspression]
 					],UpTo[difficulty]
