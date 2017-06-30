@@ -21,6 +21,8 @@ SetAttributes[extractAllExampleInDoc,{HoldAllComplete,Listable}]
 extractAllExampleInDoc[functionName_String] := Map[extractFunctionFromRowBox,findFunctionsExampleInDoc[functionName]]
 extractAllExampleInDoc[functionName_Symbol] := extractAllExampleInDoc @@ SymbolName[Unevaluated[functionName]]
 PackageExport[extractAllExampleInDoc]
+PackageExport[relaseAllPlaceholder]
+PackageExport[getSolution]
 
 
 MakeBoxes /: MakeBoxes[placeholder[n_, __], StandardForm] := 
@@ -31,6 +33,9 @@ relaseAllPlaceholder[expr_, answers_] :=
 
 replaceHeadPlaceholder[expr_, heads_]:=
 	ReplaceAll[expr, Echo@MapIndexed[ToExpression[#, StandardForm, HoldPattern] -> placeholder[First[#2], #1] &, heads]]
+
+getSolution[expr_]:=
+	Union[Reap[expr /. placeholder[x_, y_] :> Block[{}, Sow[x->y] /; True]][[2,1]]]
 
 SetAttributes[removeExpressionPart,HoldAllComplete]
 (**pattern=_Symbol?SymbolQ**)

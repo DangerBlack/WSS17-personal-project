@@ -1,8 +1,12 @@
 Package["Project`"]
 
-$SnowFlakerForm = FormFunction[
-	{"Solution" -> <|"Interpreter"-> "String", "Input" -> "f"|>},
-	HTTPRedirect[$AppRoot <> "guess/" <> ToString[#Solution]] &
+$victoryDispatcher = FormFunction[
+	{
+		"Solution" -> <|"Interpreter"-> "String", "Input" -> ""|>,
+		"exerciseInfo"-> <|"Interpreter"-> "String", "Input" -> ""|>,
+		"category"-> <|"Interpreter"-> "String", "Input" -> ""|>
+	},
+	HTTPRedirect[$AppRoot <> "category/" <> ToString[#category] <> "/guess/" <> ToString[#exerciseInfo] <> "/" <> ToString[#Solution] <> "/" ] &
 ]
 
 $AppRoot := Replace[$EvaluationCloudObject, {None -> "/", c_CloudObject :> First[c] <> "/"}]; 
@@ -51,15 +55,20 @@ chooseDifficulty[template_, cat_] :=
 				}]
 
 generateSeed[ cat_, keys_, difficulty_ ] :=
-	With[
-		{seed=RandomInteger[{1,1000}]},
-		(
-			RandomSeed[seed];
-			HTTPRedirect[StringJoin[$AppRoot,"category/",cat,"/",signList[{difficulty,seed,RandomChoice[$DataBase["Categories"][cat]]}],"/"]]
-		)
-	]
+	(
+		RandomSeed[];
+		With[
+			{seed=RandomInteger[{1,1000}]},
+			(
+				RandomSeed[seed];
+				HTTPRedirect[StringJoin[$AppRoot,"category/",cat,"/",signList[{difficulty,seed,RandomChoice[$DataBase["Categories"][cat]]}],"/"]]
+			)
+		]
+	)
 
 (*Lookup[dictionaryKey,cat]*)
+
+
 
 playGame[template_,failTemplate_, cat_, keys_, exerciseInfo_ ]:=
 	Replace[
@@ -81,7 +90,62 @@ playGame[template_,failTemplate_, cat_, keys_, exerciseInfo_ ]:=
 								(*Rasterize[Column[HoldForm @@@ $DataBase["Examples"][examples]]],*)
 								"example" -> Rasterize[Column[Identity @@@ $DataBase["Examples"][exId]],ImageFormattingWidth->600],
 								"point" -> 100,	
-								"exerciseInfo" -> exerciseInfo
+								"exerciseInfo" -> exerciseInfo,
+								"category"->cat
+							}
+						]
+					]
+				),
+			$Failed :> templateResponse[
+			failTemplate,
+			<||>,
+			<|"StatusCode" -> 404|>
+			]
+		}
+	]
+
+guessGame[cat_, exerciseInfo_ ,solution_]:=
+	Replace[
+		unsign[exerciseInfo], {
+			{difficulty_, seed_, exId_} :> (
+					SeedRandom[seed];
+					With[
+						{
+							expression = tweakFunction[$DataBase["Examples"][exId],difficulty]
+						},
+				 		If[MatchQ[Values[getSolution[expression]],{solution}],
+				 			HTTPRedirect[$AppRoot <> "category/" <> cat <> "/success/" <> exerciseInfo <> "/" <> solution <> "/" ],
+				 			HTTPRedirect[$AppRoot <> "category/" <> cat <> "/lose/"<> exerciseInfo <> "/" <> solution <> "/" ]
+				 		]
+					]
+				),
+			$Failed :> templateResponse[
+			failTemplate,
+			<||>,
+			<|"StatusCode" -> 404|>
+			]
+		}
+	]
+
+winGame[template_,cat_,exerciseInfo_,solution_]:=
+		Replace[
+		unsign[exerciseInfo], {
+			{difficulty_, seed_, exId_} :> (
+					SeedRandom[seed];
+					With[
+						{
+							expression = tweakFunction[$DataBase["Examples"][exId],difficulty]
+						},
+				 		templateResponse[
+							template,
+							{
+								"userInfo" -> First[StringSplit[ToString[$RequesterWolframID], "@"]],
+								"topic" -> $DataBase["CategoriesNames"][cat],
+								"point" -> 150,
+								"earnedPoint"-> 50,	
+								"exerciseInfo" -> exerciseInfo,
+								"category"->cat,
+								"difficulty"->difficulty
 							}
 						]
 					]
@@ -105,6 +169,8 @@ $CompleteExpressionApp := With[{
 	difficultyTemplate     	= templateLoader["difficulty.html"], 
 	playTemplate			= templateLoader["play.html"], 
 	detail   				= templateLoader["selectLoginPlay.html"],
+	winTemplate				= templateLoader["win.html"],
+	loseTemplate			= templateLoader["lose.html"],
 	notfound 				= templateLoader["404.html"],
 	keys = Values[$DataBase["CategoriesNames"]],
 	category = Keys[$DataBase["CategoriesNames"]]
@@ -121,6 +187,15 @@ $CompleteExpressionApp := With[{
 		 				generateSeed[cat,keys,difficulty],
 		"/category/" ~~ cat : category .. ~~ "/" ~~ exerciseInfo : (WordCharacter | ":" | "-") .. ~~ "/" ~~EndOfString :>
 		 				playGame[playTemplate,notfound,cat,keys,exerciseInfo],
+		"/guess/" ~~EndOfString :>
+						(**showResult[successTemplate,failTemplate,exerciseInfo],**)
+						$victoryDispatcher[HTTPRequestData["FormRules"]],
+		"/category/" ~~ cat : category .. ~~ "/guess/"  ~~ exerciseInfo : (WordCharacter | ":" | "-") .. ~~ "/" ~~ solution : WordCharacter .. ~~ "/" ~~EndOfString :>
+						guessGame[cat,exerciseInfo,solution],
+		"/category/" ~~ cat : category .. ~~ "/success/"  ~~ exerciseInfo : (WordCharacter | ":" | "-") .. ~~ "/" ~~ solution : WordCharacter .. ~~ "/" ~~EndOfString :>
+		 				winGame[winTemplate,cat,exerciseInfo,solution],
+		"/category/" ~~ cat : category .. ~~ "/lose/"  ~~ exerciseInfo : (WordCharacter | ":" | "-") .. ~~ "/" ~~ solution : WordCharacter .. ~~ "/" ~~EndOfString :>
+		 				winGame[loseTemplate,cat,exerciseInfo,solution],
 		___ :> templateResponse[
 			notfound,
 			<||>,

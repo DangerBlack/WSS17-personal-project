@@ -23,11 +23,13 @@
                     </p>
                 </div>
                 <div class="col-md-12 spacetop">
-                    <form action="/guess/`exerciseInfo`/" method="post" >
+                    <form action="/guess/" method="post" >
                         <div class="form-group">
                           <label for="pwd">Solution:</label>
-                          <input type="text" class="form-control" id="solution">
-                          <input class="btn btn-lg btn-success pull-right"type="submit" value="Submit">
+                          <input type="text" class="form-control" id="Solution" name="Solution" />
+                          <input type="hidden" id="exerciseInfo" name="exerciseInfo" value="`exerciseInfo`" />
+                          <input type="hidden" id="category" name="category" value="`category`" />
+                          <input class="btn btn-lg btn-success pull-right spaced"type="submit" value="Submit" />
                         </div>
                     </form>
                 </div>
