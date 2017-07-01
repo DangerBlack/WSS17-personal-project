@@ -41,7 +41,7 @@ getSolution[expr_]:=
 SetAttributes[removeExpressionPart,HoldAllComplete]
 (**pattern=_Symbol?SymbolQ**)
 removeExpressionPart[expr_]:=With[
-	{pattern=_Image|_Graph|_Graphics|_Graphics3D|_Random|_RandomWord},
+	{pattern=_Image|_Graph|_Graphics|_Graphics3D|_Random|_RandomWord|_RandomInteger|_RandomReal|_RandomChoice|_RandomSample},
 	expr/.pattern->garbage[]
 ]
 avoidedEspression = 

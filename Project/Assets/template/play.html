@@ -22,14 +22,23 @@
                         <span class="wolframInputSide">Out[1]=</span> <span  class="question">`example`</span>
                     </p>
                 </div>
+                <wolfram:if test="#tips>0">
                 <div class="col-md-12 spacetop">
-                    <p>Tips: `tips`</p>
+                    <p>Tips: 
+                        <wolfram:sequence values="Range[1,#tips]">
+                              _
+                        </wolfram:sequence>
+                        `tips` Letters
+                    </p>
                 </div>
+                </wolfram:if>
                 <div class="col-md-12 spacetop">
                     <form action="/guess/" method="post" >
                         <div class="form-group">
                           <label for="pwd">Solution:</label>
-                          <input type="text" class="form-control" id="Solution" name="Solution" />
+                          <wolfram:sequence values="Range[1,#numberOfSolution]">
+                            <input type="text" class="form-control" name="Solution<* #1*>" />
+                          </wolfram:sequence>
                           <input type="hidden" id="exerciseInfo" name="exerciseInfo" value="`exerciseInfo`" />
                           <input type="hidden" id="category" name="category" value="`category`" />
                           <input class="btn btn-lg btn-success pull-right spaced"type="submit" value="Submit" />
@@ -39,13 +48,6 @@
             </div>
         </div>
         <div class="col-md-2"></div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <p class="white" style="color:white">
-                `tooltip`
-            </p>
-        </div>
     </div>
   </wolfram:slot>
 </wolfram:get>
