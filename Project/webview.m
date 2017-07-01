@@ -93,7 +93,7 @@ playGame[template_,failTemplate_, cat_, keys_, exerciseInfo_ ]:=
 								"point" -> getCurrentPoint[],	
 								"exerciseInfo" -> exerciseInfo,
 								"category"->cat,
-								"numberOfSolution"->Length[getSolution[expression]],
+								"numberOfSolution"->Length[Echo@getSolution[expression]],
 								"tips"-> If[difficulty=="easy",StringLength@Values[First[getSolution[expression]]],0]
 							}
 						]

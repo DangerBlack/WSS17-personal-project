@@ -17,7 +17,7 @@ getListPlot[]:=
 getCurrentPoint[]:=
 	With[
 		{key = customHash[$RequesterWolframID,"SHA256"]},
-		Total@Echo@$store[[key,All,"point"]][]
+		Total@$store[[key,All,"point"]][]
 	]
 
 addPoint[difficulty_, seed_, exId_, point_ ]:=
