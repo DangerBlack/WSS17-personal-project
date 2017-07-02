@@ -16,17 +16,20 @@ $DataBase := $DataBase = With[
 	<|
 		"Examples"-> <|Map[customHash[#] -> # &, Keys[$exampleSymbol]]|>,
 		"Categories" -> loadCategories[$whitelist, $exampleSymbol],
-		"CategoriesNames" -> getCategoriesName[$whitelist]
+		"CategoriesNames" -> getCategoriesName[$whitelist],
+		"ExamplesNSymbols"-> <|Map[customHash[First[#]] -> Length[Last[#]] &, $exampleSymbol]|>
 	|>
 
 ]
 
 extractAllSymbols[f_] := 
-	Cases[
-		Unevaluated[f], 
-   		s_Symbol /; Context[s] == "System`" :> SymbolName[Unevaluated[s]], 
-   		Infinity, 
-		Heads -> True
+	With[{exp=removeExpressionPart[f]},
+		DeleteDuplicates@Cases[
+			Unevaluated[exp], 
+	   		s_Symbol /; Context[s] == "System`" :> SymbolName[Unevaluated[s]], 
+	   		Infinity, 
+			Heads -> True
+		]
 	]
 
 (*Load all example from function in wholewhitelist in documentation*)
@@ -34,7 +37,10 @@ loadAllExample[wholewhitelist_] := Flatten[Map[extractAllExampleInDoc, wholewhit
 (*load all symbol from al the function that can be found in documentation from wholewhitelist*)
 loadAllSymbolExample[wholewhitelist_]:=Map[# -> DeleteDuplicates@extractAllSymbols[#] &, loadAllExample[wholewhitelist]];
 (*filter all example found with the previus function only example that are made by function in wholewhilelist*)
-loadAllFilteredSymbolExample[wholewhitelist_]:= Select[loadAllSymbolExample[wholewhitelist], SubsetQ[wholewhitelist, Last[#]]&&Length[Last[#]]>1 &];
+loadAllFilteredSymbolExample[wholewhitelist_]:= Select[
+														loadAllSymbolExample[wholewhitelist],
+														SubsetQ[wholewhitelist, Last[#]]&&Length[Last[#]]>=1 &
+													];
 
 filterUnsafeExpression[l_,safeExprList_] := Select[safeExprList, SubsetQ[l, Last[#]] &]
 

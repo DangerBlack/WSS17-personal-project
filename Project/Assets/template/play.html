@@ -1,7 +1,7 @@
 <wolfram:get path='template/main.html'>
   <wolfram:slot id="content">
     <div class="row">
-        <div class="col-md-2">`topic`</div>
+        <div class="col-md-2"><h4>`topic`</h4></div>
         <div class="col-md-8"></div>
         <div class="col-md-2">
                 <p class="username">`userInfo`</p>
@@ -24,23 +24,20 @@
                 </div>
                 <wolfram:if test="#tips>0">
                 <div class="col-md-12 spacetop">
-                    <p>Tips: 
+                    <p><label>Tips: 
                         <wolfram:sequence values="Range[1,#tips]">
                               _
                         </wolfram:sequence>
                         `tips` Letters
+                        </label>
                     </p>
                 </div>
                 </wolfram:if>
                 <div class="col-md-12 spacetop">
-                    <form action="/guess/" method="post" >
+                    <form method="post" >
                         <div class="form-group">
                           <label for="pwd">Solution:</label>
-                          <wolfram:sequence values="Range[1,#numberOfSolution]">
-                            <input type="text" class="form-control" name="Solution<* #1*>" />
-                          </wolfram:sequence>
-                          <input type="hidden" id="exerciseInfo" name="exerciseInfo" value="`exerciseInfo`" />
-                          <input type="hidden" id="category" name="category" value="`category`" />
+                          `form`
                           <input class="btn btn-lg btn-success pull-right spaced"type="submit" value="Submit" />
                         </div>
                     </form>

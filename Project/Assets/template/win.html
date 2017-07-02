@@ -1,12 +1,12 @@
 <wolfram:get path='template/main.html'>
   <wolfram:slot id="content">
   	<div class="row">
-        <div class="col-md-2">`topic`</div>
+        <div class="col-md-2"><h4>`topic`</h4></div>
         <div class="col-md-8">
-        	    <h1>YOU WIN!!!!</h1>
-    			<h2>And you are awesome!</h2>
-    			<p>`date`</p>
-    			<h2><b>+`earnedPoint`</b> Point </h2>  
+        	    <h1 class="win">YOU WIN!!!!</h1>
+    			<h2 class="win">And you are awesome!</h2>
+    			<p class="win">`date`</p>
+    			<h2 class="win"><b>+`earnedPoint`</b> Point </h2>  
     			<p><a class="btn btn-success btn-lg pull-right spaced" href="`AppRoot`category/`category`/`difficulty`/" >Next</a></p>
         </div>
         <div class="col-md-2">

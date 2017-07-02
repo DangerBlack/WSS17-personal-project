@@ -1,0 +1,25 @@
+<wolfram:get path='template/main.html'>
+  <wolfram:slot id="content">
+    <style>
+    </style>
+  	<div class="row">
+        <div class="col-md-2">`topic`</div>
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-4 userspace">
+                    <h3>User Information</h3>
+                    <label>Wolfram ID</label>
+                    <p class="username"><span>`userInfo`</span></p>
+                    <label>Score</label>
+                    <p><span class="point">`point` pt</span></p>
+                </div>
+                <div class="col-md-8">
+                    `plot`
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+        </div>      
+    </div>
+  </wolfram:slot>
+</wolfram:get>

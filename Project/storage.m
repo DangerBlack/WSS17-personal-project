@@ -5,6 +5,8 @@ PackageExport[getCurrentPoint]
 PackageExport[addPoint]
 PackageExport[exerciseDoneQ]
 PackageExport[getExercisePoint]
+PackageExport[getAllExerciseDone]
+PackageExport[getAccumulateListPlot]
 
 
 (*best use case DateListPlot *)
@@ -14,6 +16,18 @@ getListPlot[]:=
 		Values@$store[key][[All, {"date","point"}]]
 	]
 
+getAccumulateListPlot[]:=
+	With[
+		{gList= getListPlot[]},
+		With[
+			  {
+			  	apoint = Accumulate@gList[[All, "point"]]
+			  },
+			  Table[<| "date" -> gList[[i, "date"]], "point" -> apoint[[i]]|>, 
+			  		{i,1, Length[apoint]}
+			  ]
+		]
+	]
 getCurrentPoint[]:=
 	With[
 		{key = customHash[$RequesterWolframID,"SHA256"]},
@@ -42,4 +56,9 @@ addPoint[difficulty_, seed_, exId_, point_ ]:=
 		{key = customHash[$RequesterWolframID,"SHA256"]},
 		KeyExistsQ[$store[key], {difficulty, seed, exId}]
 	]
- 	
+ 
+ getAllExerciseDone[difficulty_]:=
+ 	With[
+		{key = customHash[$RequesterWolframID,"SHA256"]},
+		Cases[Keys@$store[key], {difficulty, _, _}]
+	]

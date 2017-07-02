@@ -2,6 +2,12 @@ Package["Project`"]
 
 PackageExport[tweakFunction]
 PackageExport[calculateScore]
+PackageExport[removeExpressionPart]
+PackageExport[extractAllExampleInDoc]
+PackageExport[relaseAllPlaceholder]
+PackageExport[getSolution]
+PackageExport[garbage]
+PackageExport[placeholder]
 
 (* ::Input::Initialization:: *)
 (**Function for extracting RowBox from documentation**)
@@ -21,9 +27,6 @@ extractRandomFunction[functionName_]:=extractFunctionFromRowBox[RandomChoice[fin
 SetAttributes[extractAllExampleInDoc,{HoldAllComplete,Listable}]
 extractAllExampleInDoc[functionName_String] := Map[extractFunctionFromRowBox,findFunctionsExampleInDoc[functionName]]
 extractAllExampleInDoc[functionName_Symbol] := extractAllExampleInDoc @@ SymbolName[Unevaluated[functionName]]
-PackageExport[extractAllExampleInDoc]
-PackageExport[relaseAllPlaceholder]
-PackageExport[getSolution]
 
 
 MakeBoxes /: MakeBoxes[placeholder[n_, __], StandardForm] := 
@@ -40,25 +43,32 @@ getSolution[expr_]:=
 
 SetAttributes[removeExpressionPart,HoldAllComplete]
 (**pattern=_Symbol?SymbolQ**)
+(**
+Tooltip: Use _Placeholder for The Whole element, use Placeholder for only the head of expression
+ example:
+ List[1,2,4] \[Rule]  \[Placeholder][1,2,3]  avoid this happen with List
+List[1,2,4] \[Rule]  List[\[Placeholder],2,3]  avoid this happen in the other removeExpressionPart
+**)
 removeExpressionPart[expr_]:=With[
-	{pattern=_Image|_Graph|_Graphics|_Graphics3D|_Random|_RandomWord|_RandomInteger|_RandomReal|_RandomChoice|_RandomSample},
-	expr/.pattern->garbage[]
+	{pattern=_Image|_Graph|_Graphics|_Graphics3D|_Random|_RandomWord|_RandomInteger|_RandomReal|_RandomChoice|_RandomSample|
+			List| Rule | RuleDelayed},
+	expr/.pattern->garbage
 ]
 avoidedEspression = 
- "Placeholder" | "Placeholder" | "Hold" | "Rule" | "RuleDelayed" | 
+ "Placeholder" |  "Hold" | "Rule" | "RuleDelayed" | 
   "List" | "List" | "Random" | "RandomInteger"
 
 tweakFunction[expr_,difficulty_Integer]:=
 	With[
 		{symbols=RandomSample[
 				Cases[
-							Flatten@Map[extractAllSymbols,removeExpressionPart[expr]],
+							Flatten@Map[extractAllSymbols,List@@removeExpressionPart[expr]],
 							Except[avoidedEspression]
 					],UpTo[difficulty]
 				]
 		},
 		replaceHeadPlaceholder[expr,symbols]
-	]
+	]/. FullForm  -> "FullForm"
 tweakFunction[expr_, "easy"]:=
 	tweakFunction[expr,1]
 tweakFunction[expr_, "medium"]:=
