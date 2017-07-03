@@ -33,7 +33,7 @@ MakeBoxes /: MakeBoxes[placeholder[n_, __], StandardForm] :=
 	ToBoxes[Placeholder[n]]
 
 relaseAllPlaceholder[expr_, answers_] := 
- ReleaseHold@Hold[expr] /. placeholder[x_, __] :> Block[{}, answers[[x]]/; True]
+ ReleaseHold @ Hold[expr] /. placeholder[x_, __] :> Block[{}, answers[[x]]/; True]
 
 replaceHeadPlaceholder[expr_, heads_]:=
 	ReplaceAll[expr, MapIndexed[ToExpression[#, StandardForm, HoldPattern] -> placeholder[First[#2], #1] &, heads]]
@@ -49,9 +49,16 @@ Tooltip: Use _Placeholder for The Whole element, use Placeholder for only the he
  List[1,2,4] \[Rule]  \[Placeholder][1,2,3]  avoid this happen with List
 List[1,2,4] \[Rule]  List[\[Placeholder],2,3]  avoid this happen in the other removeExpressionPart
 **)
-removeExpressionPart[expr_]:=With[
-	{pattern=_Image|_Graph|_Graphics|_Graphics3D|_Random|_RandomWord|_RandomInteger|_RandomReal|_RandomChoice|_RandomSample|
-			List| Rule | RuleDelayed},
+removeExpressionPart[expr_, patt___]:=With[
+	{pattern = Alternatives[
+		_Image, _Graph, _Graphics, 
+		_Graphics3D, 
+		_Random, _RandomWord, 
+		_RandomInteger, _RandomReal, 
+		_RandomChoice, _RandomSample, 
+		List, Rule, RuleDelayed,
+		patt
+		]},
 	expr/.pattern->garbage
 ]
 avoidedEspression = 
