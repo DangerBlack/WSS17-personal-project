@@ -167,7 +167,7 @@ playGame[template_,failTemplate_, cat_, keys_, exerciseInfo_, form_ ]:=
 					SeedRandom[seed];
 					With[
 						{
-							expression = Echo@tweakFunction[Echo@$DataBase["Examples"][exId],difficulty]
+							expression = tweakFunction[$DataBase["Examples"][exId],difficulty]
 						},
 				 		templateResponse[
 							template,
@@ -182,7 +182,7 @@ playGame[template_,failTemplate_, cat_, keys_, exerciseInfo_, form_ ]:=
 								"point" -> getCurrentPoint[],	
 								"exerciseInfo" -> exerciseInfo,
 								"category"->cat,
-								"numberOfSolution"->Length[Echo@getSolution[expression]],
+								"numberOfSolution"->Length[getSolution[expression]],
 								"tips"-> If[difficulty=="easy",StringLength@Values[First[getSolution[expression]]],0],
 								"error"->error,
 								"form"-> form

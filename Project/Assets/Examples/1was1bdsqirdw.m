@@ -1,0 +1,1 @@
+{hold[Sin[Indeterminate]]}

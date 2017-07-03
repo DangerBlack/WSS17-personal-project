@@ -74,7 +74,7 @@ getCurrentPoint[]:=
 			Quiet@Total@$store[[key,All,"point"]][]
 		],
 		{
-			total_Integer :> Echo@total,
+			total_Integer :> total,
 			___ :> 0
 		}
 	]

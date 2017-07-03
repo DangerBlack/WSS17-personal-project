@@ -1,0 +1,1 @@
+{hold[CellPrint["a"]]}

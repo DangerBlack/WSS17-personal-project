@@ -1,0 +1,1 @@
+{hold[PolyhedronData["Tetrahedron", "Vertices"]]}

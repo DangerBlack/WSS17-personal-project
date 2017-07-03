@@ -1,0 +1,1 @@
+{hold[ResourceObject["Gettysburg Address"]]}

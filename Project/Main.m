@@ -2,6 +2,9 @@ Package["Project`"]
 
 (* this is declaring that a certain simbol can be used IN the paclet *)
 PackageScope[$SomeSymbol]
+SetAttributes[hold, {HoldAll, SequenceHold, Flat}]
+
+PackageExport[hold]
 
 Unprotect[$TemplatePath]
 $TemplatePath = Prepend[$TemplatePath,PacletManager`PacletResource["Project", "Assets"]]

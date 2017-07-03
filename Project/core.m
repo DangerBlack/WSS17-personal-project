@@ -36,7 +36,7 @@ relaseAllPlaceholder[expr_, answers_] :=
  ReleaseHold@Hold[expr] /. placeholder[x_, __] :> Block[{}, answers[[x]]/; True]
 
 replaceHeadPlaceholder[expr_, heads_]:=
-	ReplaceAll[expr, Echo@MapIndexed[ToExpression[#, StandardForm, HoldPattern] -> placeholder[First[#2], #1] &, heads]]
+	ReplaceAll[expr, MapIndexed[ToExpression[#, StandardForm, HoldPattern] -> placeholder[First[#2], #1] &, heads]]
 
 getSolution[expr_]:=
 	Union[Reap[expr /. placeholder[x_, y_] :> Block[{}, Sow[x->y] /; True]][[2,1]]]

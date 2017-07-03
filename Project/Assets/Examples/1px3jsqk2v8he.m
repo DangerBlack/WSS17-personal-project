@@ -1,0 +1,11 @@
+{hold[Shallow[WikipediaData["Category" -> "sports cars"]]], 
+ hold[Shallow[WikipediaData["Category" -> "Chemistry", "CategoryMembers"]]], 
+ hold[links = WikipediaData["Category" -> "Physics", "CategoryLinks", 
+     "MaxLevelItems" -> 10, "MaxLevel" -> 2]; ], 
+ hold[Graph[links, VertexLabels -> Placed["Name", Tooltip], 
+   VertexStyle -> {"Physics" -> Red}]], 
+ hold[Shallow[WikipediaData["Koala", "ParentCategories"]]], 
+ hold[WikipediaData[{Entity["Person", "BarackObama::7yj6w"], 
+    Entity["Person", "JenniferLawrence::k8f6z"]}, "Title"]], 
+ hold[WikipediaData[Entity["Person", "BarackObama::7yj6w"], "PageID"]], 
+ hold[WikipediaData["Jennifer Lawrence", "PageID"]]}

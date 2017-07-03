@@ -1,9 +1,7 @@
 Package["Project`"]
 
 (**PackageExport[Pippo]**)
-SetAttributes[hold, {HoldAll, SequenceHold, Flat}]
 
-PackageExport[hold]
 PackageExport[$wholewhitelist]
 PackageExport[$DataBase]
 PackageExport[extractAllSymbols]
@@ -13,6 +11,7 @@ $whitelist      := $whitelist      = Get[FileNameJoin[{PacletManager`PacletResou
 $wholewhitelist := $wholewhitelist = DeleteDuplicates[Join @@  $whitelist]
 
 
+(*
 
 $DataBase := $DataBase = With[
 	{$exampleSymbol = loadAllFilteredSymbolExample[$wholewhitelist]},
@@ -23,7 +22,7 @@ $DataBase := $DataBase = With[
 		"ExamplesNSymbols"-> <|Map[customHash[First[#]] -> Length[Last[#]] &, $exampleSymbol]|>
 	|>
 
-]
+]*)
 
 extractAllSymbols[f_] := 
 	With[{exp=removeExpressionPart[f]},
@@ -67,15 +66,23 @@ loadCategories[whitelist_, examples_]:=
 		whitelist
 	]
 
-(*
-$DataBase = getSettings["dataset.m",
+
+saveExample[key_,example_]:=
+	Put[example,FileNameJoin[{$ApplicationExampleFolder, StringJoin[key,".m"]}]];
+getExample[key_]:=
+	Get[FileNameJoin[{$ApplicationExampleFolder, StringJoin[key,".m"]}]];
+
+$DataBase := $DataBase = getSettings["dataset.m",
 	With[
 		{$exampleSymbol = loadAllFilteredSymbolExample[$wholewhitelist]},
-		<|
-			"Examples"-> <|Map[customHash[#] -> # &, Keys[$exampleSymbol]]|>,
-			"Categories" -> loadCategories[$whitelist, $exampleSymbol],
-			"CategoriesNames" -> getCategoriesName[$whitelist],
-			"ExamplesNSymbols"-> <|Map[customHash[First[#]] -> Length[Last[#]] &, $exampleSymbol]|>
-		|>
+		(
+			Map[saveExample[customHash[#], #]&, Keys[$exampleSymbol]];
+			<|
+				"Examples":> getExample,
+				"Categories" -> loadCategories[$whitelist, $exampleSymbol],
+				"CategoriesNames" -> getCategoriesName[$whitelist],
+				"ExamplesNSymbols"-> <|Map[customHash[First[#]] -> Length[Last[#]] &, $exampleSymbol]|>
+			|>
+		)
 	]
-]*)
+]

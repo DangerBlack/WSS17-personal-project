@@ -1,0 +1,1 @@
+{hold[LetterNumber["\[Gamma]", "Greek"]]}

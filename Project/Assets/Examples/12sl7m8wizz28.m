@@ -1,0 +1,10 @@
+{hold[GeoGraphics[{Polygon[Entity["City", {"Roswell", "NewMexico", 
+       "UnitedStates"}]]}, GeoRange -> Quantity[10, "Kilometers"], 
+   GeoRangePadding -> None]], 
+ hold[GeoGraphics[{Polygon[Entity["City", {"Roswell", "NewMexico", 
+       "UnitedStates"}]]}, GeoRange -> 10000, GeoRangePadding -> None]], 
+ hold[range = GeoRange /. Options[%, GeoRange]], 
+ hold[GeoDistance[Sequence @@ ({#1, Mean[range[[2]]]} & ) /@ range[[1]], 
+    UnitSystem -> "Metric"]/2], 
+ hold[GeoDistance[Sequence @@ ({Mean[range[[1]]], #1} & ) /@ range[[2]], 
+    UnitSystem -> "Metric"]/2]}

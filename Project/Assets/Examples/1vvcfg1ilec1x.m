@@ -1,0 +1,1 @@
+{hold[FinancialData["EUR/USD"]]}

@@ -1,0 +1,1 @@
+{hold[CountryData["France", "Shape"]]}
