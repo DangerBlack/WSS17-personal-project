@@ -2,6 +2,7 @@ Package["Project`"]
 
 PackageExport[$store]
 PackageExport[$uuid]
+PackageExport[getSettings]
 
 SetAttribute[getSettings,HoldRest]
 getSettings[path_,failCallback_]:=
@@ -22,6 +23,9 @@ getSettings[path_,failCallback_]:=
 $store  = getSettings["database.m",CreateCloudExpression[<| |>]]
 
 $uuid  = getSettings["uuid.m",CreateUUID[]]
+
+
+
 (*
 database = CreateCloudExpression[<| |>]
 

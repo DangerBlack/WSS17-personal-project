@@ -8,8 +8,11 @@ PackageExport[$wholewhitelist]
 PackageExport[$DataBase]
 PackageExport[extractAllSymbols]
 
+
 $whitelist      := $whitelist      = Get[FileNameJoin[{PacletManager`PacletResource["Project", "Assets"], "category.m"}]]
 $wholewhitelist := $wholewhitelist = DeleteDuplicates[Join @@  $whitelist]
+
+
 
 $DataBase := $DataBase = With[
 	{$exampleSymbol = loadAllFilteredSymbolExample[$wholewhitelist]},
@@ -63,3 +66,16 @@ loadCategories[whitelist_, examples_]:=
 		],
 		whitelist
 	]
+
+(*
+$DataBase = getSettings["dataset.m",
+	With[
+		{$exampleSymbol = loadAllFilteredSymbolExample[$wholewhitelist]},
+		<|
+			"Examples"-> <|Map[customHash[#] -> # &, Keys[$exampleSymbol]]|>,
+			"Categories" -> loadCategories[$whitelist, $exampleSymbol],
+			"CategoriesNames" -> getCategoriesName[$whitelist],
+			"ExamplesNSymbols"-> <|Map[customHash[First[#]] -> Length[Last[#]] &, $exampleSymbol]|>
+		|>
+	]
+]*)
