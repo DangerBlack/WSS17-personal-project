@@ -7,44 +7,40 @@ PackageExport[$ApplicationRoot]
 PackageExport[$ApplicationExampleFolder]
 
 $ApplicationRoot := $ApplicationRoot = 
-	If[
-		$CloudEvaluation,
-		CreateDirectory[
-			FileNameJoin[{$HomeDirectory,"CTE","Assets"}]
-		],
-		PacletManager`PacletResource["Project", "Assets"]
+	With[
+		{path = If[
+			TrueQ[$CloudEvaluation], 
+			FileNameJoin[{$HomeDirectory, "CTE", "Assets"}],
+			FileNameJoin[{$TemporaryDirectory, "CTE", "Assets"}]
+		]},
+		Quiet[CreateDirectory[path], CreateDirectory::filex];
+		path
 	]
 
 $ApplicationExampleFolder := $ApplicationExampleFolder=
-	Replace[
-		CreateDirectory[
-			FileNameJoin[{$ApplicationRoot,"Examples"}]
-		],
-		{
-			$Failed :> FileNameJoin[{$ApplicationRoot,"Examples"}],
-			x_ :> x
-		}] 
+	With[
+		{path = FileNameJoin[{$ApplicationRoot, "Examples"}]},
+		Quiet[CreateDirectory[path], CreateDirectory::filex];
+		path
+	]
 
 SetAttribute[getSettings,HoldRest]
 getSettings[path_,failCallback_]:=
 	With[
-		{data = Quiet@Get[FileNameJoin[{$ApplicationRoot, path}]]},
+		{data = Quiet @ Get[FileNameJoin[{$ApplicationRoot, path}]]},
 		If[	data =!= $Failed,
 			data,
-			Print["canot find "<> path];
 			With[
-				{
-					res=failCallback
-				},
-				Put[res,FileNameJoin[{$ApplicationRoot, path}]];
+				{res = failCallback},
+				Put[res, FileNameJoin[{$ApplicationRoot, path}]];
 				res
 			]
 		]
 	]
 
-$store  = getSettings["database.m",CreateCloudExpression[<| |>]]
+$store  = getSettings["database.m",CreateCloudExpression[<| |>]];
 
-$uuid  = getSettings["uuid.m",CreateUUID[]]
+$uuid  = getSettings["uuid.m",CreateUUID[]];
 
 
 
