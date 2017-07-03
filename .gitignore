@@ -2,7 +2,5 @@
 /bluprint/pages/*
 /bluprint/Resources/*
 /bluprint/index.html
-/Project/Assets/database.m
-/Project/Assets/uuid.m
-/Project/Assets/dataset.m
-/Project/Assets/Examples
+/Project/Assets/*.m
+/Project/Assets/Examples/*.m
