@@ -3,6 +3,7 @@ Package["Project`"]
 PackageExport[tweakFunction]
 PackageExport[calculateScore]
 PackageExport[removeExpressionPart]
+PackageExport[extractFunctionFromRowBox]
 PackageExport[extractAllExampleInDoc]
 PackageExport[relaseAllPlaceholder]
 PackageExport[getSolution]
@@ -16,7 +17,7 @@ extractFunctionFromRowBox[box_] := Flatten[Map[ToExpression[Cases[#,_BoxData,Inf
 
 (**Find function example in documentation as RowBox**)
 (*findFunctionsExampleInDoc[functionName_]:=Flatten[Lookup[WolframLanguageData[functionName,"DocumentationExampleInputs"],"BasicExamples"]]*)
-findFunctionsExampleInDoc[functionName_]:=Lookup[WolframLanguageData[functionName,"DocumentationExampleInputs"],"BasicExamples"]
+findFunctionsExampleInDoc[functionName_]:=Lookup[WolframLanguageData[functionName,"DocumentationExampleInputs"]/. _Missing -> {"BasicExamples" -> {}},"BasicExamples"]
 
 (**Pick a random sample from documentation about functionName**)
 extractRandomFunction[functionName_]:=extractFunctionFromRowBox[RandomChoice[findFunctionsExampleInDoc[functionName]]]

@@ -32,7 +32,13 @@ extractAllSymbols[f_] :=
 	]
 
 (*Load all example from function in wholewhitelist in documentation*)
-loadAllExample[wholewhitelist_] := Flatten[Map[extractAllExampleInDoc, wholewhitelist],1]
+loadAllExample[wholewhitelist_] := Map[extractFunctionFromRowBox, 
+ 										Lookup[
+ 												WolframLanguageData[$wholewhitelist, "DocumentationExampleInputs"] 
+ 													/. _Missing -> {"BasicExamples" -> {}}, 
+ 												"BasicExamples"
+ 												]
+ 										]
 (*load all symbol from al the function that can be found in documentation from wholewhitelist*)
 loadAllSymbolExample[wholewhitelist_]:=Map[# -> DeleteDuplicates@extractAllSymbols[#] &, loadAllExample[wholewhitelist]];
 (*filter all example found with the previus function only example that are made by function in wholewhilelist*)
@@ -72,14 +78,12 @@ getExample[key_]:=
 $DataBase := $DataBase = getSettings["dataset.m",
 	With[
 		{$exampleSymbol = loadAllFilteredSymbolExample[$wholewhitelist]},
-		(
-			Map[saveExample[customHash[#], #]&, Keys[$exampleSymbol]];
-			<|
-				"Examples":> getExample,
-				"Categories" -> loadCategories[$whitelist, $exampleSymbol],
-				"CategoriesNames" -> getCategoriesName[$whitelist],
-				"ExamplesNSymbols"-> <|Map[customHash[First[#]] -> Length[Last[#]] &, $exampleSymbol]|>
-			|>
-		)
+		Map[saveExample[customHash[#], #]&, Keys[$exampleSymbol]];
+		<|
+			"Examples":> getExample,
+			"Categories" -> loadCategories[$whitelist, $exampleSymbol],
+			"CategoriesNames" -> getCategoriesName[$whitelist],
+			"ExamplesNSymbols"-> <|Map[customHash[First[#]] -> Length[Last[#]] &, $exampleSymbol]|>
+		|>
 	]
 ]

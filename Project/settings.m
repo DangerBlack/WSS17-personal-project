@@ -24,7 +24,7 @@ $ApplicationExampleFolder := $ApplicationExampleFolder=
 		path
 	]
 
-SetAttribute[getSettings,HoldRest]
+SetAttributes[getSettings,HoldRest]
 getSettings[path_,failCallback_]:=
 	With[
 		{data = Quiet @ Get[FileNameJoin[{$ApplicationRoot, path}]]},
@@ -38,9 +38,9 @@ getSettings[path_,failCallback_]:=
 		]
 	]
 
-$store  = getSettings["database.m",CreateCloudExpression[<| |>]];
+$store  := $store  = getSettings["database.m",CreateCloudExpression[<| |>]];
 
-$uuid  = getSettings["uuid.m",CreateUUID[]];
+$uuid  := $uuid  =getSettings["uuid.m",CreateUUID[]];
 
 
 
