@@ -1,1 +1,0 @@
-{hold[Transliterate["tadaima", "Hiragana"]]}

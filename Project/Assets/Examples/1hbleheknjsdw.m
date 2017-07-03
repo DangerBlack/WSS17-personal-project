@@ -1,1 +1,0 @@
-{hold[Style["AbBbCc", "Title"]]}

@@ -1,1 +1,0 @@
-{hold[PolyhedronData["Icosahedron", "EdgeCount"]]}

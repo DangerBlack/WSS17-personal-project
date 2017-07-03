@@ -1,1 +1,0 @@
-{hold[UndirectedEdge[a, b]]}

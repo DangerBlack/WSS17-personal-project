@@ -1,1 +1,0 @@
-{hold[Area[Disk[]]]}

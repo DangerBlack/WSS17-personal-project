@@ -1,1 +1,0 @@
-{hold[WordFrequencyData[{"dog", "cat"}]]}

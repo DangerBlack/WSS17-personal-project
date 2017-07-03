@@ -1,2 +1,0 @@
-{hold[ParametricPlot3D[{Cos[u], Sin[u] + Cos[v], Sin[v]}, {u, 0, 2*Pi}, 
-   {v, -Pi, Pi}]]}

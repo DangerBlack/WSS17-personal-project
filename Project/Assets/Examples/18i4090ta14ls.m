@@ -1,1 +1,0 @@
-{hold[ExampleData[{"TestImage", "House"}]]}

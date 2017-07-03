@@ -1,1 +1,0 @@
-{hold[Entity["Lake", "LakeMichigan"]]}

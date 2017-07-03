@@ -1,1 +1,0 @@
-{hold[Implies[p, q]]}

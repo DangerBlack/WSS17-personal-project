@@ -1,1 +1,0 @@
-{hold[DayName[Today]]}

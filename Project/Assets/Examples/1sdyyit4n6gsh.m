@@ -1,1 +1,0 @@
-{hold[Sunrise[Here]]}

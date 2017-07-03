@@ -1,1 +1,0 @@
-{hold[ParametricPlot3D[{Sin[u], Cos[u], u/10}, {u, 0, 20}]]}

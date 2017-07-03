@@ -1,1 +1,0 @@
-{hold[StringLength["tiger"]]}

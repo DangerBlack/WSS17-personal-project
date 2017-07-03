@@ -1,1 +1,0 @@
-{hold[GeoGraphics[GeoRange -> "World"]]}
