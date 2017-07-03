@@ -25,12 +25,15 @@ $DataBase := $DataBase = With[
 ]*)
 
 extractAllSymbols[f_] := 
-	With[{exp=removeExpressionPart[f]},
-		DeleteDuplicates@Cases[
-			Unevaluated[exp], 
-	   		s_Symbol /; Context[s] == "System`" :> SymbolName[Unevaluated[s]], 
-	   		Infinity, 
-			Heads -> True
+	With[{exp = removeExpressionPart[f]},
+		Quiet[
+			DeleteDuplicates @ Cases[
+				Unevaluated[exp], 
+		   		s_Symbol /; Context[s] == "System`" :> SymbolName[Unevaluated[s]], 
+		   		Infinity, 
+				Heads -> True
+			],
+			General::ssle
 		]
 	]
 
