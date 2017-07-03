@@ -1,0 +1,32 @@
+<wolfram:get path='template/main.html'>
+  <wolfram:slot id="content">
+    <style>
+        .scoreboard{
+            text-align: left;
+        }
+    </style>
+  	<div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8 scoreboard">
+            <wolfram:sequence values="#score">
+                <div class="media">
+                  <div class="media-left">
+                      <a href="https://s.gravatar.com/avatar/<* #hash *>?s=80">
+                        <img src="https://s.gravatar.com/avatar/<* #hash *>?s=80" />
+                      </a>
+                  </div>
+                  <div class="media-body">
+                    <h4 class="media-heading"><* StringTake[#hash,3]<>"..."<>StringTake[#hash,-3] *></h4>
+                    <p>
+                        <label>Score:</label> <span><* #total *> pt</span><br />
+                        <label>Record Since:</label> <span><* DateString[#date, {"Day","  ", "MonthName", " ", "YearShort"}] *></span>
+                    </p>
+                  </div>
+                </div>
+            </wolfram:sequence>
+        </div>
+        <div class="col-md-2">
+        </div>      
+    </div>
+  </wolfram:slot>
+</wolfram:get>

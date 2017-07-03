@@ -128,7 +128,7 @@
 					"Purple", "Rectangle", "Red", "RegionCentroid", "RegionMeasure", 
 					"ReliefPlot", "Rule", "Set", "Sin", "Small", "Sqrt", "Subscript", 
 					"Text", "Thick", "ToExpression", "Volume", "Yellow"],
-"Real‐World Data" -> List["List", "Throw", "RowBox", "TemplateBox", "Entity", "EntityValue", "EntityClass", "All", "BarChart", "ImageCollage", "EdgeDetect", "Times", "Power", "DominantColors", "PieChart", "ImageAdd", "ColorNegate",
+"RealWorld Data" -> List["List", "Throw", "RowBox", "TemplateBox", "Entity", "EntityValue", "EntityClass", "All", "BarChart", "ImageCollage", "EdgeDetect", "Times", "Power", "DominantColors", "PieChart", "ImageAdd", "ColorNegate",
 			"Apply", "Automatic", "AxesStyle", "Background", "Blank", "Boxed", 
 			"BoxRatios", "Catch", "CellPrint", "CellTags", 
 			"ChartElementFunction", "ChartElements", "ChartLabels", 

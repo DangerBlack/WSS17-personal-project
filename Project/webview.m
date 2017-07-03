@@ -92,9 +92,21 @@ showProfile[template_] :=
 	templateResponse[
 					template, {
 					"userInfo":>First[StringSplit[ToString[$RequesterWolframID], "@"]],
-					"plot":>Rasterize@DateListPlot[getAccumulateListPlot[],PlotLegends -> {"point"},PlotLabel -> "Cumulative points through time"],
+					"plot":>Rasterize@DateListPlot[getListPlot[],PlotLegends -> {"point"},PlotLabel -> "Cumulative points through time"],
 					"point":>getCurrentPoint[]
 				}]
+
+showLeaderBoard[template_] :=
+	With[
+		{gs=getGlobalScore[]},
+		templateResponse[
+						template, {
+						"userInfo":>First[StringSplit[ToString[$RequesterWolframID], "@"]],
+						"score":>gs,
+						"n":> Length[gs],
+						"point":>getCurrentPoint[]
+					}]
+	]
 
 chooseDifficulty[template_, cat_] :=
 	templateResponse[
@@ -262,6 +274,7 @@ $CompleteExpressionApp := With[{
 	playOrLoginTemplate     = templateLoader["playOrLogin.html"],
 	categoryTemplate     	= templateLoader["category.html"], 
 	profileTemplate     	= templateLoader["profile.html"], 
+	leaderBoardTemplate    	= templateLoader["leaderboard.html"], 
 	difficultyTemplate     	= templateLoader["difficulty.html"], 
 	playTemplate			= templateLoader["play.html"], 
 	detail   				= templateLoader["selectLoginPlay.html"],
@@ -279,6 +292,8 @@ $CompleteExpressionApp := With[{
 		 				chooseCategory[categoryTemplate,keys],
 		"/profile/" ~~ EndOfString :>
 		 				showProfile[profileTemplate],
+		"/leaderboard/" ~~ EndOfString :>
+		 				showLeaderBoard[leaderBoardTemplate],
 		"/category/" ~~ cat : category .. ~~ "/" ~~ EndOfString :>
 		 				chooseDifficulty[difficultyTemplate,cat],
 		"/category/" ~~ cat : category .. ~~ "/" ~~ difficulty : difficulties ~~ "/" ~~EndOfString :>
