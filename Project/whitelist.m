@@ -104,15 +104,66 @@ getExample[key_]:=
 		Get[FileNameJoin[{$ApplicationExampleFolder, StringJoin[key,".m"]}]]
 	};
 
+
+$aree := $aree = <|
+  "MathFunctions" -> "BasicSymbols",
+  "AssociationSymbols" -> "BasicSymbols" ,
+  "ArraySymbols" -> "BasicSymbols",
+  "StructuralSymbols" -> "BasicSymbols",
+  "CalculusSymbols" -> "BasicSymbols",
+  "StatisticsSymbols" -> "GraphTheorySymbols",
+  "SeriesSymbols" -> "BasicSymbols",
+  "FormattingSymbols" -> "StringSymbols",
+  "QuantitySymbols" -> "EntitySymbols",
+  "FrontEndSymbols" -> "StringSymbols",
+  "LogicSymbols" -> "BasicSymbols",
+  "ExpressionSizeSymbols" -> "ExtractionSymbols",
+  "ColorSymbols" -> "ImageSymbols",
+  "VectorCalculusSymbols" -> "RegionSymbols",
+  "MatrixSymbols" -> "BasicSymbols",
+  "MessagesAndPrintingSymbols" -> "EntitySymbols",
+  "CellSymbols" -> "FormSymbols",
+  "ControlObjectSymbols" -> "PlottingSymbols",
+  "GraphicsSymbols" -> "ImageSymbols",
+  "NamedGraphSymbols" -> "GraphTheorySymbols",
+  "SoundSymbols" -> "EntitySymbols",
+  "GeodesySymbols" -> "GeoGraphicsSymbols",
+  "AstronomySymbols" -> "GeoGraphicsSymbols",
+  "MachineLearningSymbols" -> "ClusteringSymbols",
+  "HistogramSymbols" -> "ChartSymbols",
+  "TemplateSymbols" -> "StyleSymbols"|>;
+
+getCategoryMagic[newCatByFun_,exampleSymbol_]:=
+	KeyValueMap[#1 -> 
+	    Lookup[$aree, newCatByFun[First[#2]], newCatByFun[First[#2]]] &, 
+	  Association@exampleSymbol];
+
 $DataBase := $DataBase = getSettings["dataset.m",
 	With[
-		{$exampleSymbol = loadAllFilteredSymbolExample[$wholewhitelist]},
-		Map[saveExample[customHash[#], #]&, Keys[$exampleSymbol]];
-		<|
-			"Examples":> getExample,
-			"Categories" -> loadCategories[$whitelist, $exampleSymbol],
-			"CategoriesNames" -> getCategoriesName[$whitelist],
-			"ExamplesNSymbols"-> <|Map[customHash[First[#]] -> Length[Last[#]] &, $exampleSymbol]|>
-		|>
+		{
+			$exampleSymbol = loadAllFilteredSymbolExample[$wholewhitelist],
+			newCatByFun = 
+			  First /@ DeleteMissing[
+			    AssociationMap[
+			     WolframLanguageData[#, 
+			       "FunctionalityAreas"] &, $wholewhitelist]]
+		},
+		With[
+		{
+			precategory=getCategoryMagic[newCatByFun,$exampleSymbol]
+		},
+		With[
+			{
+				category=Select[GroupBy[precategory, Last -> First, Map[customHash]], Length[#] > 17 &]
+			},
+			Map[saveExample[customHash[#], #]&, Keys[$exampleSymbol]];
+			<|
+				"Examples":> getExample,
+				"Categories" -> category,
+				"CategoriesNames" -> Association@Map[# -> StringDelete[#, "Symbols"] &, Keys@category],
+				"ExamplesNSymbols"-> <|Map[customHash[First[#]] -> Length[Last[#]] &, $exampleSymbol]|>
+			|>
+		]
+		]
 	]
 ]

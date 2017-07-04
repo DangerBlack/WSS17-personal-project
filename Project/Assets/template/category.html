@@ -9,12 +9,9 @@
   					<hr />
   				</div>
   				<div class="col-md-12">
-				  	<div class="col-sm-2 category">
-				                <p><a class="cat0" href="`AppRoot`category/0">All</a></p>
-				    </div>
-				    <wolfram:sequence values="Range[1,#n]">
-				              <div class="col-sm-2 category">
-				                <p><a class="cat`1`" href="`AppRoot`category/<* StringReplace[ToLowerCase[#keys[[#1]]]," "->"-"] *>/"><* #keys[[#1]] *></a></p>
+				    <wolfram:sequence values="#categories">
+				              <div class="col-sm-3 category">
+				                <p><a href="`AppRoot`category/<* First[#] *>/"><* Last[#] *><a></p>
 				              </div>
 					</wolfram:sequence>
 				</div>

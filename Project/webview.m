@@ -81,11 +81,11 @@ unsign[s_String] :=
  	unsign[StringSplit[s, ":"]]
 unsign[__] := $Failed
 
-chooseCategory[template_,keys_] :=
+chooseCategory[template_,categories_] :=
 	templateResponse[
 					template, {
-					"keys":>keys,
-					"n":>Length[keys]
+					"categories":>Normal@categories,
+					"n":>Length[Normal@categories]
 				}]
 
 showProfile[template_] :=
@@ -289,7 +289,7 @@ $CompleteExpressionApp := With[{
 					playOrLoginTemplate, {
 				}],
 		"/category/" ~~ EndOfString :>
-		 				chooseCategory[categoryTemplate,keys],
+		 				chooseCategory[categoryTemplate,$DataBase["CategoriesNames"]],
 		"/profile/" ~~ EndOfString :>
 		 				showProfile[profileTemplate],
 		"/leaderboard/" ~~ EndOfString :>
