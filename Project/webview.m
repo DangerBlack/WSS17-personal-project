@@ -16,22 +16,26 @@ victoryChecker[difficulty_, seed_, exId_, expression_, response_, urlWin_, urlLo
 		( 
 			addPoint[difficulty, seed, exId, calculateScore[difficulty,seed,exId]];
 			HTTPRedirect[urlWin]
-		),				 			
-		With[
-			{number = RandomReal[]},
-			(
-				SeedRandom[number];
-				res1 = Identity @@@ $DataBase["Examples"][exId];
-				SeedRandom[number];
-				res2 = relaseAllPlaceholder[expression,response];
-				If[res1==res2,
-					( 
-	 				addPoint[difficulty, seed, exId, calculateScore[difficulty,seed,exId]];
-	 				HTTPRedirect[urlWin]
-	 			),
-	 			HTTPRedirect[urlLose]
-				]
-			)
+		),
+		If[SubsetQ[$wholewhitelist,Values@response],				 			
+			With[
+				{number = RandomInteger[{1,1000000}]},
+				(
+					SeedRandom[number];
+					res1 = Identity @@@ $DataBase["Examples"][exId];
+					SeedRandom[number];
+					res2 = Check[Identity @@@ relaseAllPlaceholder[expression,Echo@Map[ToExpression[#, StandardForm]&,Echo@Values@response]],$superPrideFailSoRainbow];
+					If[res1 === res2,
+						( 
+		 				addPoint[difficulty, seed, exId, calculateScore[difficulty,seed,exId]];
+		 				HTTPRedirect[urlWin]
+		 			),
+		 			HTTPRedirect[urlLose]
+					]
+				)
+			],
+			HTTPRedirect[urlLose]
+
 		]
 	]
 
@@ -44,6 +48,17 @@ victoryChecker[difficulty,
 				Values@response, $AppRoot <> "category/" <> cat <> "/success/" <> exerciseInfo <> "/" <> StringJoin@Riffle[Values[response],":"] <> "/", 
 				$AppRoot <> "category/" <> cat <> "/lose/"<> exerciseInfo <> "/" <> StringJoin@Riffle[Values[response],":"] <> "/"
 			]
+*)
+
+(*
+old code that works!
+If[MatchQ[Values[getSolution[expression]],Values[response]],
+						 			( 
+						 				addPoint[difficulty, seed, exId, calculateScore[difficulty,seed,exId]];
+						 				HTTPRedirect[$AppRoot <> "category/" <> cat <> "/success/" <> exerciseInfo <> "/" <> StringJoin@Riffle[Values[response],":"] <> "/" ]
+						 			),				 			
+						 			HTTPRedirect[$AppRoot <> "category/" <> cat <> "/lose/"<> exerciseInfo <> "/" <> StringJoin@Riffle[Values[response],":"] <> "/" ]
+						 		]
 *)
 victoryDispatcher[playTemplate_ ,notfound_, cat_, exerciseInfo_ ]:=
 	Replace[
@@ -59,13 +74,13 @@ victoryDispatcher[playTemplate_ ,notfound_, cat_, exerciseInfo_ ]:=
 						form,{
 							_FormFunction :> playGame[playTemplate,notfound,cat,keys,exerciseInfo,form],
 							response_Association:>								
-								If[MatchQ[Values[getSolution[expression]],Values[response]],
-						 			( 
-						 				addPoint[difficulty, seed, exId, calculateScore[difficulty,seed,exId]];
-						 				HTTPRedirect[$AppRoot <> "category/" <> cat <> "/success/" <> exerciseInfo <> "/" <> StringJoin@Riffle[Values[response],":"] <> "/" ]
-						 			),				 			
-						 			HTTPRedirect[$AppRoot <> "category/" <> cat <> "/lose/"<> exerciseInfo <> "/" <> StringJoin@Riffle[Values[response],":"] <> "/" ]
-						 		]		
+								victoryChecker[difficulty,
+									seed,
+									exId,
+									expression,
+									response, $AppRoot <> "category/" <> cat <> "/success/" <> exerciseInfo <> "/" <> StringJoin@Riffle[Values[response],":"] <> "/", 
+									$AppRoot <> "category/" <> cat <> "/lose/"<> exerciseInfo <> "/" <> StringJoin@Riffle[Values[response],":"] <> "/"
+								]	
 						}
 					]			 		
 				]
