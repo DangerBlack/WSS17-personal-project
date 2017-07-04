@@ -1,10 +1,42 @@
 <wolfram:get path='template/main.html'>
   <wolfram:slot id="content">
+    <style >
+        h1{
+                color: #fe4e37;
+                text-shadow: 4px 4px 4px black, 4px 4px 25px black;
+                font-size: 4em;
+        }
+        .left-text{
+            text-align: left;
+        }
+    </style>
     <div class="row">
     	<div class="col-md-2"></div>
-    	<div class="col-md-8 explorerbg">
-    		<h1>Complete the Function</h1>
-    		<a href="category/" class="btn btn-success btn-lg spaced" >PLAY</a>
+    	<div class="col-md-8">
+            <div class="row">
+                <div class="col-md-12 explorerbg">
+                    <h1>Complete the Function</h1>
+            		<a href="category/" class="btn btn-success btn-lg spaced" >PLAY</a>
+                </div>
+            </div>
+            <div class="row left-text">
+                <div class="col-md-12">
+                    <hr />
+                    <h3 id="about" class="left">Complete the Function</h3>
+                    <p>
+                        <i>Complete the Function</i> is a game designed by <a href="http://www.danielebaschieri.eu">DangerBlack</a> during the <a href="https://education.wolfram.com/summer/school/">Wolfram Summer School 2017</a>, the aim of the game is: given an expression in <a href="http://reference.wolfram.com/language/?source=nav">Wolfram Mathematica Language</a> finds the missing sport and complete with the better function. <br />
+                        The game is enterely developed trought Mathematica 11.1 during a 3 weeks stage in Boston, Ma.<br />
+                    </p>
+                    <hr />
+                    <label>Instruction</label>
+                    <p>
+                        Each expression contain one or more missing spot <span ><img src="data:image/jpg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/4QBWRXhpZgAASUkqAAgAAAABADEBAgA0AAAAGgAAAAAAAABDcmVhdGVkIHdpdGggdGhlIFdvbGZyYW0gTGFuZ3VhZ2UgOiB3d3cud29sZnJhbS5jb20A/9sAQwAIBgYHBgUIBwcHCQkICgwUDQwLCwwZEhMPFB0aHx4dGhwcICQuJyAiLCMcHCg3KSwwMTQ0NB8nOT04MjwuMzQy/9sAQwEJCQkMCwwYDQ0YMiEcITIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIy/8AAEQgAFAAOAwEiAAIRAQMRAf/EAB8AAAEFAQEBAQEBAAAAAAAAAAABAgMEBQYHCAkKC//EALUQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+v/EAB8BAAMBAQEBAQEBAQEAAAAAAAABAgMEBQYHCAkKC//EALURAAIBAgQEAwQHBQQEAAECdwABAgMRBAUhMQYSQVEHYXETIjKBCBRCkaGxwQkjM1LwFWJy0QoWJDThJfEXGBkaJicoKSo1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoKDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uLj5OXm5+jp6vLz9PX29/j5+v/aAAwDAQACEQMRAD8A9raS1trSFm5j48vCFmJ7YAGSep4HrSNLFNbLcW9wkSy4PmlR8wx05p1zHLLbogyshKgvHj5f7xGenGRnrzRJCsNtHFDapIiYCxkgADHvXnJ6mpdW2VNoVmCKu0Lxj/GmSWYkiCGeYEHO5WAJ/IUUV1RiuxFz/9k="  /> </span>
+                        must be completed with the appropriate function.<br />
+                        In easy mode the game give you a Tip about the size of the missin function.<br />
+                        In hard mode the game give you more than one mising spot to replace.<br />
+                    </p>
+                </div>
+            </div>
     	</div>
     	<div class="col-md-2"></div>
     </div>
