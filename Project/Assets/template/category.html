@@ -1,23 +1,16 @@
 <wolfram:get path='template/main.html'>
   <wolfram:slot id="content">
   	<div class="row">
-  		<div class="col-md-1"></div>
-  		<div class="col-md-10">
-  			<div class="row">
-  				<div class="col-md-12">
-  					<h1>Choose a topic</h1>
-  					<hr />
-  				</div>
-  				<div class="col-md-12">
-				    <wolfram:sequence values="#categories">
-				              <div class="col-sm-3 category">
-				                <p><a href="`AppRoot`category/<* First[#] *>/"><* Last[#] *><a></p>
+  		<div class="col-md-10 col-md-offset-1">
+        <h1 class="page-header">Choose a topic</h1>
+  			<div class="row">	
+				  <wolfram:sequence values="#categories">
+				              <div class="col-sm-3">
+				                <a class=category href="`AppRoot`category/<* First[#] *>/"><* Last[#] *></a>
 				              </div>
 					</wolfram:sequence>
 				</div>
 			</div>
 		</div>
-		<div class="col-md-1"></div>
-	</div>
   </wolfram:slot>
 </wolfram:get>

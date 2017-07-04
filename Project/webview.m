@@ -86,7 +86,7 @@ victoryDispatcher[playTemplate_ ,notfound_, cat_, exerciseInfo_ ]:=
 				]
 			),
 			$Failed :> templateResponse[
-				failTemplate,
+				notfound,
 				<||>,
 				<|"StatusCode" -> 400|>
 			]
