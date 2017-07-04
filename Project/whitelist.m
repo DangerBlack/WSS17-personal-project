@@ -71,25 +71,30 @@ getCategoriesName[whitelist_]:=
 	]*)
 weight[l_] := 
  Association @@ Map[# -> Count[l, #]/Length[l] &, DeleteDuplicates@l]
-calculateWeight[categorySymbol_, symbols_] := 
- N[Times @@ Map[Lookup[categorySymbol, #, 10^-6] &, symbols]]
-pickCategoryFromSymbol[symbols_] :=
- 		With[{wl = Map[
-     			calculateWeight[#, symbols] &,
-     			KeyValueMap[#1 -> weight[#2] &, $whitelist][[All, 2]]
+calculateWeight[categorySymbol_, expr_] := 
+ Total[Map[Length[#]&, 
+   			Position[expr,
+   					 Alternatives @@Map[ToExpression[#, InputForm, HoldPattern] &, categorySymbol],
+   					 Infinity, 
+    				Heads -> True]
+    				]]/(1+Length[extractAllSymbols[exp]])
+
+pickCategoryFromSymbol[expr_,whitelist_] :=
+ 		With[
+ 			{wl = KeyValueMap[
+     			#1 -> calculateWeight[#2, expr] &,
+     			whitelist
      		]},
-  			First@Flatten@Position[wl, Max[wl]]
+  			Last@Keys@Sort@wl
   			]
+
 loadCategories[whitelist_, exampleSymbol_] :=
- Association@With[{
-			    	catsid = Map[buildKey, Keys@whitelist]
-				    },
-				   With[{esLabeled = 
-				      Map[First[#] -> catsid[[pickCategoryFromSymbol[Last[#]]]] &, 
-				       exampleSymbol]},
-				      GroupBy[esLabeled, Last->First,Map[customHash]]
-			   		]
-				]
+ Association@
+		   With[{esLabeled = 
+		      Map[First[#] -> pickCategoryFromSymbol[First[#],whitelist] &, 
+		       exampleSymbol]},
+		      GroupBy[esLabeled, Last->First,Map[customHash]]
+	   		]
 
 
 saveExample[key_,example_]:=

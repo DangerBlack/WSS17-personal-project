@@ -2618,7 +2618,6 @@ $whitelist      := <|
         "Times",
         "Plus",
         "Nest",
-        "Function",
         "Power",
         "Slot",
         "Flatten",
