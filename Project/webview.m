@@ -21,7 +21,7 @@ victoryChecker[difficulty_, seed_, exId_, expression_, response_, urlWin_, urlLo
 			{number = RandomReal[]},
 			(
 				SeedRandom[number];
-				res1 = Identity @@@ $DataBase["Examples"][exId]];
+				res1 = Identity @@@ $DataBase["Examples"][exId];
 				SeedRandom[number];
 				res2 = relaseAllPlaceholder[expression,response];
 				If[res1==res2,
@@ -32,7 +32,7 @@ victoryChecker[difficulty_, seed_, exId_, expression_, response_, urlWin_, urlLo
 	 			HTTPRedirect[urlLose]
 				]
 			)
-		)
+		]
 	]
 
 (*
