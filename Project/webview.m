@@ -11,6 +11,40 @@ $victoryDispatcher = FormFunction[
 ]
 
 
+victoryChecker[difficulty_, seed_, exId_, expression_, response_, urlWin_, urlLose_] :=
+	If[MatchQ[Values[getSolution[expression]],Values[response]],
+		( 
+			addPoint[difficulty, seed, exId, calculateScore[difficulty,seed,exId]];
+			HTTPRedirect[urlWin]
+		),				 			
+		With[
+			{number = RandomReal[]},
+			(
+				SeedRandom[number];
+				res1 = Identity @@@ $DataBase["Examples"][exId]];
+				SeedRandom[number];
+				res2 = relaseAllPlaceholder[expression,response];
+				If[res1==res2,
+					( 
+	 				addPoint[difficulty, seed, exId, calculateScore[difficulty,seed,exId]];
+	 				HTTPRedirect[urlWin]
+	 			),
+	 			HTTPRedirect[urlLose]
+				]
+			)
+		)
+	]
+
+(*
+this should work!
+victoryChecker[difficulty,
+				seed,
+				exId,
+				expression,
+				Values@response, $AppRoot <> "category/" <> cat <> "/success/" <> exerciseInfo <> "/" <> StringJoin@Riffle[Values[response],":"] <> "/", 
+				$AppRoot <> "category/" <> cat <> "/lose/"<> exerciseInfo <> "/" <> StringJoin@Riffle[Values[response],":"] <> "/"
+			]
+*)
 victoryDispatcher[playTemplate_ ,notfound_, cat_, exerciseInfo_ ]:=
 	Replace[
 		unsign[exerciseInfo], {
