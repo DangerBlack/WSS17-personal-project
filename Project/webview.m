@@ -24,7 +24,7 @@ victoryChecker[difficulty_, seed_, exId_, expression_, response_, urlWin_, urlLo
 					SeedRandom[number];
 					res1 = Identity @@@ $DataBase["Examples"][exId];
 					SeedRandom[number];
-					res2 = Check[Identity @@@ relaseAllPlaceholder[expression,Echo@Map[ToExpression[#, StandardForm]&,Echo@Values@response]],$superPrideFailSoRainbow];
+					res2 = Check[Identity @@@ relaseAllPlaceholder[expression,Map[ToExpression[#, StandardForm]&,Values@response]],$superPrideFailSoRainbow];
 					If[res1 === res2,
 						( 
 		 				addPoint[difficulty, seed, exId, calculateScore[difficulty,seed,exId]];
