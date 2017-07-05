@@ -13,6 +13,30 @@ When user solve the problem the system give him a score related with his perform
 * Create the web application with Wolfram Cloud's Api
 * Design a sand-box that can run solutions proposed by users
 * Design a graph of problem that user can explore from documentation
-* Design different step of complessity in the game, multiple choice, lenght of the missing part, only position 
+* Design different step of complessity in the game, multiple choice, lenght of the missing part, only position
 * Design a system of Karma Point, Badge and progression in the game
 * Improve layout and user experience
+
+
+## Start the server
+
+All the web server is self contained in _$CompleteExpressionApp_
+you just have to import the Project` directory and running the server.
+
+```
+Unprotect[$TemplatePath];
+$TemplatePath = Prepend[
+   					$TemplatePath,
+   					PacletManager`PacletResource["Project", "Assets"]
+   					];
+<< HTTPHandling`
+<< Project`
+StartWebServer[$CompleteExpressionApp]
+```
+
+## Screenshot
+
+### home
+![home](http://community.wolfram.com//c/portal/getImageAttachment?filename=home_new.png&userId=1123820)
+### game section
+![game](http://community.wolfram.com//c/portal/getImageAttachment?filename=difficile.png&userId=1123820)
