@@ -57,7 +57,7 @@ removeExpressionPart[expr_, patt___]:=With[
 		_Random, _RandomWord, 
 		_RandomInteger, _RandomReal, 
 		_RandomChoice, _RandomSample, 
-		List, Rule, RuleDelayed,
+		List, Rule, RuleDelayed, CompoundExpression,
 		patt
 		]},
 	expr/.pattern->garbage
